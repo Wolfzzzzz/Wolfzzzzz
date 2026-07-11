@@ -5,6 +5,14 @@ Edit CONFIG in the script and re-run to refresh.
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0e75b6&height=120&section=header" alt="banner"/>
 
 <div align="center">
+
+## 🌐 炫酷多语主页 · Multilingual Page
+### 👉 **https://wolfzzzzz.github.io/Wolfzzzzz/**
+> 超炫粒子动画 · 打字机 · 玻璃拟态 · 简体 / English / 繁體 / 粵語 四语动态切换
+
+</div>
+
+<div align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&pause=800&color=58A6FF&center=true&vCenter=true&width=600&lines=Hi+%F0%9F%91%8B+I'm+Wolf;Welcome+to+my+GitHub;Building+cool+things+one+commit+at+a+time" alt="Typing SVG" />
 </div>
 
