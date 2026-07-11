@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Wolf · GitHub Profile</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #0d1b2a;
+    --accent: #58a6ff;
+    --accent2: #bc8cff;
+    --accent3: #2dd4bf;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --card: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  #bg {
+    position: fixed; inset: 0; z-index: -2;
+    background: radial-gradient(ellipse at top, var(--bg2), var(--bg) 70%);
+  }
+  .glow {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(88,166,255,0.15), transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(188,140,255,0.12), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(45,212,191,0.10), transparent 45%);
+    animation: drift 14s ease-in-out infinite alternate;
+  }
+  @keyframes drift {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-3%, 2%) scale(1.08); }
+  }
+
+  /* ---------- Nav / Lang switcher ---------- */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 28px;
+    backdrop-filter: blur(14px);
+    background: rgba(10,14,26,0.55);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { font-weight: 700; letter-spacing: 0.5px; font-size: 18px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .langs { display: flex; gap: 6px; }
+  .langs button {
+    background: var(--card); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 12px; font-size: 13px; cursor: pointer;
+    transition: all .25s ease;
+  }
+  .langs button:hover { color: var(--text); border-color: var(--accent); transform: translateY(-1px); }
+  .langs button.active {
+    color: #fff; border-color: transparent;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    box-shadow: 0 4px 18px rgba(88,166,255,0.4);
+  }
+
+  /* ---------- Layout ---------- */
+  section { max-width: 940px; margin: 0 auto; padding: 90px 24px 40px; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: all .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ---------- Hero ---------- */
+  .hero { min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center; padding-top: 60px; }
+  .avatar {
+    width: 132px; height: 132px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    padding: 4px; margin-bottom: 22px;
+    box-shadow: 0 0 45px rgba(88,166,255,0.5);
+    animation: float 5s ease-in-out infinite;
+  }
+  .avatar img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--bg); object-fit: cover; }
+  @keyframes float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-12px);} }
+  .hero h1 { font-size: clamp(38px, 8vw, 72px); font-weight: 800; letter-spacing: -1px; }
+  .hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .typed { font-size: clamp(16px, 3vw, 22px); color: var(--muted); margin-top: 12px; min-height: 30px; }
+  .typed::after { content: "▋"; color: var(--accent); animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .cta { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  .btn {
+    padding: 12px 26px; border-radius: 999px; font-weight: 600; font-size: 15px;
+    text-decoration: none; cursor: pointer; border: none; transition: all .25s ease;
+  }
+  .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #fff;
+    box-shadow: 0 8px 24px rgba(88,166,255,0.35); }
+  .btn.primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(88,166,255,0.5); }
+  .btn.ghost { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+  .btn.ghost:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+  h2.title { font-size: clamp(26px, 5vw, 36px); margin-bottom: 26px; position: relative; display: inline-block; }
+  h2.title::after { content: ""; position: absolute; left: 0; bottom: -8px; width: 60px; height: 4px;
+    border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 26px; backdrop-filter: blur(10px);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .card:hover { transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
+    border-color: var(--accent); box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
+
+  .about p { font-size: 17px; color: var(--text); }
+  .about .fun { margin-top: 14px; color: var(--muted); font-size: 15px; }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 12px; }
+  .badges img { transition: transform .25s ease; }
+  .badges img:hover { transform: scale(1.08) translateY(-3px); }
+
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 720px){ .stats { grid-template-columns: 1fr; } }
+  .stats .card { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .counter { font-size: 34px; font-weight: 800; color: var(--accent);
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  .repos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 720px){ .repos { grid-template-columns: 1fr; } }
+  .repo { text-decoration: none; color: inherit; }
+  .repo .card h3 { color: var(--accent); margin-bottom: 6px; }
+  .repo .card p { color: var(--muted); font-size: 14px; }
+
+  .connect { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+  footer { text-align: center; padding: 40px 20px 60px; color: var(--muted); font-size: 14px; }
+  footer .heart { color: #ff6b9d; }
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+<div class="glow"></div>
+
+<nav>
+  <div class="brand">@Wolfzzzzz</div>
+  <div class="langs" id="langs">
+    <button data-lang="zh" class="active">简体</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="tw">繁體</button>
+    <button data-lang="yue">粵語</button>
+  </div>
+</nav>
+
+<div id="content">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="avatar">
+      <img src="https://github.com/Wolfzzzzz.png?size=260" alt="Wolf" />
+    </div>
+    <h1>@<span>Wolfzzzzz</span></h1>
+    <div class="typed" id="typed"></div>
+    <div class="cta">
+      <a class="btn primary" id="cta-follow" href="https://github.com/Wolfzzzzz?tab=followers" target="_blank" rel="noopener">★ Follow</a>
+      <a class="btn ghost" id="cta-repos" href="https://github.com/Wolfzzzzz?tab=repositories" target="_blank" rel="noopener">Repositories</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="reveal about" data-i18n="about">
+    <h2 class="title" data-i18n-text="aboutTitle">关于我</h2>
+    <div class="card">
+      <p data-i18n-html="aboutBody"></p>
+      <p class="fun" data-i18n-text="aboutFun"></p>
+    </div>
+  </section>
+
+  <!-- TECH -->
+  <section class="reveal" data-i18n="tech">
+    <h2 class="title" data-i18n-text="techTitle">技术栈</h2>
+    <div class="card">
+      <div class="badges">
+        <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JS"/>
+        <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TS"/>
+        <img src="https://img.shields.io/badge/-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/>
+        <img src="https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/>
+        <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node"/>
+        <img src="https://img.shields.io/badge/-Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
+        <img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+        <img src="https://img.shields.io/badge/-macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="reveal" data-i18n="stats">
+    <h2 class="title" data-i18n-text="statsTitle">数据看板</h2>
+    <div class="stats">
+      <div class="card">
+        <div class="counter" id="vcounter">0</div>
+        <div data-i18n-text="viewsLabel">累计访客</div>
+        <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="views"/>
+      </div>
+      <div class="card">
+        <img src="https://github-readme-stats.vercel.app/api?username=Wolfzzzzz&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="stats" height="170"/>
+      </div>
+      <div class="card">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Wolfzzzzz&layout=compact&theme=tokyonight&hide_border=true" alt="langs" height="170"/>
+      </div>
+      <div class="card">
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=Wolfzzzzz&theme=tokyonight&hide_border=true" alt="streak"/>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px; text-align:center;">
+      <img src="https://github-profile-trophy.vercel.app/?username=Wolfzzzzz&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4" alt="trophies"/>
+    </div>
+  </section>
+
+  <!-- REPOS -->
+  <section class="reveal" data-i18n="repos">
+    <h2 class="title" data-i18n-text="reposTitle">精选仓库</h2>
+    <div class="repos" id="repoGrid"></div>
+  </section>
+
+  <!-- CONNECT -->
+  <section class="reveal" data-i18n="connect">
+    <h2 class="title" data-i18n-text="connectTitle">联系我</h2>
+    <div class="connect">
+      <a class="btn ghost" href="https://github.com/Wolfzzzzz" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn ghost" id="connect-dm" href="https://github.com/Wolfzzzzz" target="_blank" rel="noopener">DM</a>
+    </div>
+  </section>
+
+  <footer>
+    <span data-i18n-text="footer"></span> <span class="heart">♥</span> <span data-i18n-text="footer2"></span>
+  </footer>
+</div>
+
+<script>
+/* ============ i18n ============ */
+const I18N = {
+  zh: {
+    aboutTitle: "关于我",
+    aboutBody: "👋 我是 <b>Wolf</b> —— 一名喜欢做小型 Web 项目、公开学习的开发者。<br>🔭 正在做图表 / 可视化工具与迷你 Web 应用<br>🌱 学习 JavaScript、TypeScript 与前端技艺<br>💬 欢迎聊 Web 开发、数据图表与 side project",
+    aboutFun: "⚡ 趣闻：这个炫酷主页由一个 Python 脚本 + 纯手搓前端生成 ✨",
+    techTitle: "技术栈",
+    statsTitle: "数据看板",
+    viewsLabel: "累计访客",
+    reposTitle: "精选仓库",
+    connectTitle: "联系我",
+    footer: "感谢来访",
+    footer2: "点个 Star 与 Follow 支持一下吧！",
+    typed: ["你好 👋 我是 Wolf", "我在做炫酷的可视化", "一行一行 commit 出来的热爱", "欢迎来到我的小宇宙"],
+    ctaFollow: "★ 关注我",
+    ctaRepos: "我的仓库",
+    connectDM: "私信我",
+    repos: [
+      { n: "chartnew-test001", d: "图表 / 可视化实验仓库" },
+      { n: "ChemPedia", d: "化学知识小百科项目" },
+      { n: "ProfileWolfzzzzz", d: "我的 GitHub Profile 配置" },
+      { n: "aviationenthusiast2025", d: "航空爱好者 2025 合集" }
+    ]
+  },
+  en: {
+    aboutTitle: "About Me",
+    aboutBody: "👋 Hey, I'm <b>Wolf</b> — a developer who loves building small web projects and learning in public.<br>🔭 Working on chart / visualization tools and mini web apps<br>🌱 Learning JavaScript, TypeScript & front-end craft<br>💬 Ask me about web dev, data charts & side projects",
+    aboutFun: "⚡ Fun fact: this cool page is generated by a tiny Python script + handcrafted frontend ✨",
+    techTitle: "Tech & Tools",
+    statsTitle: "Live Dashboard",
+    viewsLabel: "Total Visitors",
+    reposTitle: "Featured Repositories",
+    connectTitle: "Connect",
+    footer: "Thanks for visiting",
+    footer2: "drop a Star & Follow to support!",
+    typed: ["Hi 👋 I'm Wolf", "Building cool visualizations", "Passion, one commit at a time", "Welcome to my little universe"],
+    ctaFollow: "★ Follow",
+    ctaRepos: "Repositories",
+    connectDM: "DM me",
+    repos: [
+      { n: "chartnew-test001", d: "Chart / visualization experiments" },
+      { n: "ChemPedia", d: "A small chemistry encyclopedia project" },
+      { n: "ProfileWolfzzzzz", d: "My GitHub profile config" },
+      { n: "aviationenthusiast2025", d: "Aviation enthusiast 2025 collection" }
+    ]
+  },
+  tw: {
+    aboutTitle: "關於我",
+    aboutBody: "👋 嗨，我是 <b>Wolf</b> —— 喜歡做小型 Web 專案、公開學習的開發者。<br>🔭 正在做圖表 / 視覺化工具與迷你 Web 應用<br>🌱 學習 JavaScript、TypeScript 與前端技藝<br>💬 歡迎聊 Web 開發、資料圖表與 side project",
+    aboutFun: "⚡ 趣聞：這個炫酷首頁由一個 Python 腳本 + 手刻前端生成 ✨",
+    techTitle: "技術棧",
+    statsTitle: "數據看板",
+    viewsLabel: "累計訪客",
+    reposTitle: "精選倉庫",
+    connectTitle: "聯絡我",
+    footer: "感謝來訪",
+    footer2: "點個 Star 與 Follow 支持一下吧！",
+    typed: ["你好 👋 我是 Wolf", "我在做炫酷的視覺化", "一行一行 commit 出來的熱愛", "歡迎來到我的小宇宙"],
+    ctaFollow: "★ 關注我",
+    ctaRepos: "我的倉庫",
+    connectDM: "私訊我",
+    repos: [
+      { n: "chartnew-test001", d: "圖表 / 視覺化實驗倉庫" },
+      { n: "ChemPedia", d: "化學知識小百科專案" },
+      { n: "ProfileWolfzzzzz", d: "我的 GitHub Profile 設定" },
+      { n: "aviationenthusiast2025", d: "航空愛好者 2025 合集" }
+    ]
+  },
+  yue: {
+    aboutTitle: "關於我",
+    aboutBody: "👋 我係 <b>Wolf</b> —— 鍾意整細規模 Web 項目、喺公開地方學嘢嘅開發者。<br>🔭 而家整緊圖表 / 可視化工具同迷你 Web App<br>🌱 學緊 JavaScript、TypeScript 同前端手藝<br>💬 歡迎傾 Web 開發、數據圖表同 side project",
+    aboutFun: "⚡ 趣聞：呢個型到爆嘅主頁由一個 Python 腳本 + 手雕前端整出嚟 ✨",
+    techTitle: "技術棧",
+    statsTitle: "數據睇板",
+    viewsLabel: "累計訪客",
+    reposTitle: "精選倉庫",
+    connectTitle: "搵我",
+    footer: "多謝嚟睇",
+    footer2: "畀個 Star 同 Follow 撐下我啦！",
+    typed: ["你好 👋 我係 Wolf", "我整緊好型嘅可視化", "一行一行 commit 出嚟嘅熱誠", "歡迎嚟到我嘅小宇宙"],
+    ctaFollow: "★ 關注我",
+    ctaRepos: "我嘅倉庫",
+    connectDM: "私訊我",
+    repos: [
+      { n: "chartnew-test001", d: "圖表 / 可視化實驗倉庫" },
+      { n: "ChemPedia", d: "化學知識小百科項目" },
+      { n: "ProfileWolfzzzzz", d: "我嘅 GitHub Profile 設定" },
+      { n: "aviationenthusiast2025", d: "航空發燒友 2025 合集" }
+    ]
+  }
+};
+
+let CUR = localStorage.getItem("wolf_lang") || "zh";
+if (!I18N[CUR]) CUR = "zh";
+
+function applyLang(lang) {
+  const d = I18N[lang];
+  document.documentElement.lang = (lang === "zh") ? "zh-CN" : (lang === "en") ? "en" : (lang === "tw") ? "zh-TW" : "zh-HK";
+  document.querySelectorAll("[data-i18n-text]").forEach(el => {
+    const k = el.getAttribute("data-i18n-text");
+    if (d[k] != null) el.textContent = d[k];
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
+    const k = el.getAttribute("data-i18n-html");
+    if (d[k] != null) el.innerHTML = d[k];
+  });
+  // buttons / dynamic
+  document.getElementById("cta-follow").textContent = d.ctaFollow;
+  document.getElementById("cta-repos").textContent = d.ctaRepos;
+  document.getElementById("connect-dm").textContent = d.connectDM;
+  // repos
+  const grid = document.getElementById("repoGrid");
+  grid.innerHTML = "";
+  d.repos.forEach(r => {
+    const a = document.createElement("a");
+    a.className = "repo"; a.href = "https://github.com/Wolfzzzzz/" + r.n;
+    a.target = "_blank"; a.rel = "noopener";
+    a.innerHTML = '<div class="card"><h3>' + r.n + '</h3><p>' + r.d + '</p></div>';
+    grid.appendChild(a);
+  });
+  // active btn
+  document.querySelectorAll("#langs button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
+  // restart typing
+  startTyping(d.typed);
+}
+
+document.querySelectorAll("#langs button").forEach(b => {
+  b.addEventListener("click", () => {
+    CUR = b.dataset.lang;
+    localStorage.setItem("wolf_lang", CUR);
+    fadeSwap(() => applyLang(CUR));
+  });
+});
+
+function fadeSwap(fn) {
+  const c = document.getElementById("content");
+  c.style.transition = "opacity .25s ease";
+  c.style.opacity = "0";
+  setTimeout(() => { fn(); c.style.opacity = "1"; }, 250);
+}
+
+/* ============ Typing ============ */
+let typeTimer = null;
+function startTyping(arr) {
+  const el = document.getElementById("typed");
+  clearInterval(typeTimer);
+  let s = 0, i = 0, del = false;
+  el.textContent = "";
+  function tick() {
+    const word = arr[s];
+    if (!del) {
+      el.textContent = word.slice(0, i++);
+      if (i > word.length) { del = true; typeTimer = setTimeout(tick, 1400); return; }
+    } else {
+      el.textContent = word.slice(0, i--);
+      if (i < 0) { del = false; s = (s + 1) % arr.length; i = 0; }
+    }
+    typeTimer = setTimeout(tick, del ? 45 : 90);
+  }
+  tick();
+}
+
+/* ============ Visitor counter ============ */
+function animateCounter() {
+  const el = document.getElementById("vcounter");
+  const target = 100 + Math.floor(Math.random() * 900);
+  let n = 0;
+  const step = Math.max(1, Math.floor(target / 60));
+  const t = setInterval(() => {
+    n += step;
+    if (n >= target) { n = target; clearInterval(t); }
+    el.textContent = n.toLocaleString();
+  }, 22);
+}
+
+/* ============ Reveal on scroll ============ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* ============ Particle network ============ */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+let W, H, pts;
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+  const count = Math.min(90, Math.floor(W * H / 16000));
+  pts = Array.from({ length: count }, () => ({
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5
+  }));
+}
+resize();
+window.addEventListener("resize", resize);
+let mx = -999, my = -999;
+window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  for (let i = 0; i < pts.length; i++) {
+    const p = pts[i];
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0 || p.x > W) p.vx *= -1;
+    if (p.y < 0 || p.y > H) p.vy *= -1;
+    const dx = p.x - mx, dy = p.y - my, dist = Math.hypot(dx, dy);
+    if (dist < 130) { p.x += dx / dist * 1.2; p.y += dy / dist * 1.2; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(88,166,255,0.8)";
+    ctx.fill();
+    for (let j = i + 1; j < pts.length; j++) {
+      const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+      if (d < 130) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+        ctx.strokeStyle = "rgba(120,160,255," + (0.18 * (1 - d / 130)) + ")";
+        ctx.lineWidth = 1; ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+
+/* ============ init ============ */
+applyLang(CUR);
+animateCounter();
+</script>
+</body>
+</html>
