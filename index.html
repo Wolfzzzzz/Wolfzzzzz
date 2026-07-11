@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Wolf · GitHub Profile</title>
+<meta name="description" content="Wolf 的 GitHub 主页 — 粒子动画、四语切换、精选仓库与实时数据看板。" />
+<meta name="theme-color" content="#0a0e1a" />
+<link rel="preconnect" href="https://github.com" />
+<link rel="preconnect" href="https://komarev.com" />
+<link rel="preconnect" href="https://github-readme-stats.vercel.app" />
+<link rel="preconnect" href="https://img.shields.io" />
 <style>
   :root {
     --bg: #0a0e1a;
@@ -25,21 +31,35 @@
     overflow-x: hidden;
     line-height: 1.6;
   }
+
+  /* scroll progress */
+  #progress {
+    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+    z-index: 100;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    box-shadow: 0 0 12px rgba(88,166,255,.6);
+    transition: width .12s linear;
+  }
+
   #bg {
     position: fixed; inset: 0; z-index: -2;
     background: radial-gradient(ellipse at top, var(--bg2), var(--bg) 70%);
   }
-  .glow {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  /* aurora layers */
+  .aurora {
+    position: fixed; inset: -20%; z-index: -1; pointer-events: none;
     background:
-      radial-gradient(circle at 20% 30%, rgba(88,166,255,0.15), transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(188,140,255,0.12), transparent 40%),
-      radial-gradient(circle at 50% 90%, rgba(45,212,191,0.10), transparent 45%);
-    animation: drift 14s ease-in-out infinite alternate;
+      radial-gradient(40% 40% at 20% 30%, rgba(88,166,255,0.18), transparent 60%),
+      radial-gradient(38% 38% at 80% 25%, rgba(188,140,255,0.16), transparent 60%),
+      radial-gradient(45% 45% at 55% 80%, rgba(45,212,191,0.14), transparent 60%);
+    filter: blur(48px);
+    animation: drift 18s ease-in-out infinite alternate;
+    will-change: transform;
   }
   @keyframes drift {
-    0% { transform: translate(0,0) scale(1); }
-    100% { transform: translate(-3%, 2%) scale(1.08); }
+    0%   { transform: translate(0,0) scale(1) rotate(0deg); }
+    50%  { transform: translate(2%, -2%) scale(1.08) rotate(3deg); }
+    100% { transform: translate(-3%, 2%) scale(1.05) rotate(-2deg); }
   }
 
   /* ---------- Nav / Lang switcher ---------- */
@@ -70,7 +90,7 @@
 
   /* ---------- Layout ---------- */
   section { max-width: 940px; margin: 0 auto; padding: 90px 24px 40px; }
-  .reveal { opacity: 0; transform: translateY(28px); transition: all .7s cubic-bezier(.2,.7,.3,1); }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
   .reveal.in { opacity: 1; transform: none; }
 
   /* ---------- Hero ---------- */
@@ -82,10 +102,12 @@
     padding: 4px; margin-bottom: 22px;
     box-shadow: 0 0 45px rgba(88,166,255,0.5);
     animation: float 5s ease-in-out infinite;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px; font-weight: 800; color: #fff;
   }
   .avatar img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--bg); object-fit: cover; }
   @keyframes float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-12px);} }
-  .hero h1 { font-size: clamp(38px, 8vw, 72px); font-weight: 800; letter-spacing: -1px; }
+  .hero h1 { font-size: clamp(38px, 8vw, 72px); font-weight: 800; letter-spacing: -1px; text-shadow: 0 0 30px rgba(88,166,255,.25); }
   .hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
     -webkit-background-clip: text; background-clip: text; color: transparent; }
   .typed { font-size: clamp(16px, 3vw, 22px); color: var(--muted); margin-top: 12px; min-height: 30px; }
@@ -110,6 +132,7 @@
     background: var(--card); border: 1px solid var(--border); border-radius: 18px;
     padding: 26px; backdrop-filter: blur(10px);
     transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    will-change: transform;
   }
   .card:hover { transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
     border-color: var(--accent); box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
@@ -135,13 +158,32 @@
   .repo .card p { color: var(--muted); font-size: 14px; }
 
   .connect { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-  footer { text-align: center; padding: 40px 20px 60px; color: var(--muted); font-size: 14px; }
+  footer { text-align: center; padding: 40px 20px 80px; color: var(--muted); font-size: 14px; }
   footer .heart { color: #ff6b9d; }
+
+  /* back to top */
+  #toTop {
+    position: fixed; right: 22px; bottom: 22px; z-index: 60;
+    width: 46px; height: 46px; border-radius: 50%;
+    border: 1px solid var(--border); background: rgba(10,14,26,0.6);
+    backdrop-filter: blur(10px); color: var(--text); cursor: pointer;
+    opacity: 0; pointer-events: none; transform: translateY(10px);
+    transition: opacity .3s ease, transform .3s ease, border-color .3s ease;
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  #toTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  #toTop:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </head>
 <body>
+<div id="progress"></div>
 <canvas id="bg"></canvas>
-<div class="glow"></div>
+<div class="aurora"></div>
 
 <nav>
   <div class="brand">@Wolfzzzzz</div>
@@ -157,7 +199,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="avatar">
-      <img src="https://github.com/Wolfzzzzz.png?size=260" alt="Wolf" />
+      <img src="https://github.com/Wolfzzzzz.png?size=260" alt="Wolf" onerror="this.style.display='none'" />
     </div>
     <h1>@<span>Wolfzzzzz</span></h1>
     <div class="typed" id="typed"></div>
@@ -181,14 +223,14 @@
     <h2 class="title" data-i18n-text="techTitle">技术栈</h2>
     <div class="card">
       <div class="badges">
-        <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JS"/>
-        <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TS"/>
-        <img src="https://img.shields.io/badge/-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML"/>
-        <img src="https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS"/>
-        <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node"/>
-        <img src="https://img.shields.io/badge/-Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git"/>
-        <img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
-        <img src="https://img.shields.io/badge/-macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS"/>
+        <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JS" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TS" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" loading="lazy"/>
+        <img src="https://img.shields.io/badge/-macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" loading="lazy"/>
       </div>
     </div>
   </section>
@@ -200,20 +242,20 @@
       <div class="card">
         <div class="counter" id="vcounter">0</div>
         <div data-i18n-text="viewsLabel">累计访客</div>
-        <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="views"/>
+        <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="views" loading="lazy"/>
       </div>
       <div class="card">
-        <img src="https://github-readme-stats.vercel.app/api?username=Wolfzzzzz&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="stats" height="170"/>
+        <img src="https://github-readme-stats.vercel.app/api?username=Wolfzzzzz&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="stats" height="170" loading="lazy"/>
       </div>
       <div class="card">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Wolfzzzzz&layout=compact&theme=tokyonight&hide_border=true" alt="langs" height="170"/>
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Wolfzzzzz&layout=compact&theme=tokyonight&hide_border=true" alt="langs" height="170" loading="lazy"/>
       </div>
       <div class="card">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=Wolfzzzzz&theme=tokyonight&hide_border=true" alt="streak"/>
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=Wolfzzzzz&theme=tokyonight&hide_border=true" alt="streak" loading="lazy"/>
       </div>
     </div>
     <div class="card" style="margin-top:16px; text-align:center;">
-      <img src="https://github-profile-trophy.vercel.app/?username=Wolfzzzzz&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4" alt="trophies"/>
+      <img src="https://github-profile-trophy.vercel.app/?username=Wolfzzzzz&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4" alt="trophies" loading="lazy"/>
     </div>
   </section>
 
@@ -236,6 +278,8 @@
     <span data-i18n-text="footer"></span> <span class="heart">♥</span> <span data-i18n-text="footer2"></span>
   </footer>
 </div>
+
+<button id="toTop" title="回到顶部" aria-label="回到顶部">↑</button>
 
 <script>
 /* ============ i18n ============ */
@@ -330,6 +374,8 @@ const I18N = {
   }
 };
 
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 let CUR = localStorage.getItem("wolf_lang") || "zh";
 if (!I18N[CUR]) CUR = "zh";
 
@@ -344,11 +390,9 @@ function applyLang(lang) {
     const k = el.getAttribute("data-i18n-html");
     if (d[k] != null) el.innerHTML = d[k];
   });
-  // buttons / dynamic
   document.getElementById("cta-follow").textContent = d.ctaFollow;
   document.getElementById("cta-repos").textContent = d.ctaRepos;
   document.getElementById("connect-dm").textContent = d.connectDM;
-  // repos
   const grid = document.getElementById("repoGrid");
   grid.innerHTML = "";
   d.repos.forEach(r => {
@@ -358,9 +402,7 @@ function applyLang(lang) {
     a.innerHTML = '<div class="card"><h3>' + r.n + '</h3><p>' + r.d + '</p></div>';
     grid.appendChild(a);
   });
-  // active btn
   document.querySelectorAll("#langs button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
-  // restart typing
   startTyping(d.typed);
 }
 
@@ -384,6 +426,7 @@ let typeTimer = null;
 function startTyping(arr) {
   const el = document.getElementById("typed");
   clearInterval(typeTimer);
+  if (REDUCED) { el.textContent = arr[0]; return; }
   let s = 0, i = 0, del = false;
   el.textContent = "";
   function tick() {
@@ -403,6 +446,7 @@ function startTyping(arr) {
 /* ============ Visitor counter ============ */
 function animateCounter() {
   const el = document.getElementById("vcounter");
+  if (REDUCED) { el.textContent = (100 + Math.floor(Math.random() * 900)).toLocaleString(); return; }
   const target = 100 + Math.floor(Math.random() * 900);
   let n = 0;
   const step = Math.max(1, Math.floor(target / 60));
@@ -413,6 +457,24 @@ function animateCounter() {
   }, 22);
 }
 
+/* ============ Scroll progress + back to top ============ */
+const progress = document.getElementById("progress");
+const toTop = document.getElementById("toTop");
+let ticking = false;
+function onScroll() {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(() => {
+    const h = document.documentElement;
+    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
+    progress.style.width = (scrolled * 100).toFixed(2) + "%";
+    toTop.classList.toggle("show", h.scrollTop > 400);
+    ticking = false;
+  });
+}
+window.addEventListener("scroll", onScroll, { passive: true });
+toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }));
+
 /* ============ Reveal on scroll ============ */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
@@ -422,51 +484,69 @@ document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 /* ============ Particle network ============ */
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
-let W, H, pts;
+let W, H, pts, rafId = null, running = true;
+const DPR = Math.min(window.devicePixelRatio || 1, 2);
+
 function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-  const count = Math.min(90, Math.floor(W * H / 16000));
+  W = canvas.width = Math.floor(window.innerWidth * DPR);
+  H = canvas.height = Math.floor(window.innerHeight * DPR);
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+  const count = Math.min(90, Math.floor((W * H) / (16000 * DPR * DPR)));
   pts = Array.from({ length: count }, () => ({
     x: Math.random() * W, y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5
+    vx: (Math.random() - 0.5) * 0.5 * DPR, vy: (Math.random() - 0.5) * 0.5 * DPR
   }));
 }
 resize();
 window.addEventListener("resize", resize);
-let mx = -999, my = -999;
-window.addEventListener("mousemove", e => { mx = e.clientX; my = e.clientY; });
+
+let mx = -9999, my = -9999;
+window.addEventListener("mousemove", e => { mx = e.clientX * DPR; my = e.clientY * DPR; });
 
 function draw() {
+  if (!running) return;
   ctx.clearRect(0, 0, W, H);
+  const R = 130 * DPR;
   for (let i = 0; i < pts.length; i++) {
     const p = pts[i];
     p.x += p.vx; p.y += p.vy;
     if (p.x < 0 || p.x > W) p.vx *= -1;
     if (p.y < 0 || p.y > H) p.vy *= -1;
     const dx = p.x - mx, dy = p.y - my, dist = Math.hypot(dx, dy);
-    if (dist < 130) { p.x += dx / dist * 1.2; p.y += dy / dist * 1.2; }
+    if (dist < R) { p.x += dx / dist * 1.2; p.y += dy / dist * 1.2; }
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 1.8 * DPR, 0, Math.PI * 2);
     ctx.fillStyle = "rgba(88,166,255,0.8)";
     ctx.fill();
     for (let j = i + 1; j < pts.length; j++) {
       const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
-      if (d < 130) {
+      if (d < R) {
         ctx.beginPath();
         ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-        ctx.strokeStyle = "rgba(120,160,255," + (0.18 * (1 - d / 130)) + ")";
+        ctx.strokeStyle = "rgba(120,160,255," + (0.18 * (1 - d / R)) + ")";
         ctx.lineWidth = 1; ctx.stroke();
       }
     }
   }
-  requestAnimationFrame(draw);
+  rafId = requestAnimationFrame(draw);
 }
-draw();
+
+function startParticles() {
+  if (REDUCED) { draw(); cancelAnimationFrame(rafId); return; } // single static frame
+  if (!rafId) rafId = requestAnimationFrame(draw);
+}
+function stopParticles() { running = false; cancelAnimationFrame(rafId); rafId = null; }
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) { stopParticles(); }
+  else { running = true; startParticles(); }
+});
+startParticles();
 
 /* ============ init ============ */
 applyLang(CUR);
 animateCounter();
+onScroll();
 </script>
 </body>
 </html>
