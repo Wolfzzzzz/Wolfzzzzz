@@ -7,9 +7,8 @@
 <meta name="description" content="Wolf 的 GitHub 主页 — 粒子动画、四语切换、精选仓库与实时数据看板。" />
 <meta name="theme-color" content="#0a0e1a" />
 <link rel="preconnect" href="https://github.com" />
+<link rel="preconnect" href="https://api.github.com" />
 <link rel="preconnect" href="https://komarev.com" />
-<link rel="preconnect" href="https://github-readme-stats.vercel.app" />
-<link rel="preconnect" href="https://img.shields.io" />
 <style>
   :root {
     --bg: #0a0e1a;
@@ -146,10 +145,15 @@
 
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 720px){ .stats { grid-template-columns: 1fr; } }
-  .stats .card { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .counter { font-size: 34px; font-weight: 800; color: var(--accent);
+  .stats .card { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .counter { font-size: 34px; font-weight: 800;
     background: linear-gradient(90deg, var(--accent), var(--accent2));
     -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .langrow { display: flex; align-items: center; gap: 10px; margin: 9px 0; font-size: 14px; }
+  .langname { width: 96px; flex: none; color: var(--text); }
+  .langtrack { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+  .langfill { height: 100%; border-radius: 99px; width: 0; transition: width 1.1s cubic-bezier(.2,.7,.3,1); }
+  .langpct { width: 48px; flex: none; text-align: right; color: var(--muted); font-size: 13px; }
 
   .repos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 720px){ .repos { grid-template-columns: 1fr; } }
@@ -240,22 +244,29 @@
     <h2 class="title" data-i18n-text="statsTitle">数据看板</h2>
     <div class="stats">
       <div class="card">
-        <div class="counter" id="vcounter">0</div>
-        <div data-i18n-text="viewsLabel">累计访客</div>
-        <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="views" loading="lazy"/>
+        <div class="counter" id="s-followers">0</div>
+        <div data-i18n-text="followersLabel">关注者</div>
       </div>
       <div class="card">
-        <img src="https://github-readme-stats.vercel.app/api?username=Wolfzzzzz&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" alt="stats" height="170" loading="lazy"/>
+        <div class="counter" id="s-stars">1</div>
+        <div data-i18n-text="starsLabel">获得 Star</div>
       </div>
       <div class="card">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Wolfzzzzz&layout=compact&theme=tokyonight&hide_border=true" alt="langs" height="170" loading="lazy"/>
+        <div class="counter" id="s-repos">32</div>
+        <div data-i18n-text="reposLabel">公开仓库</div>
       </div>
       <div class="card">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=Wolfzzzzz&theme=tokyonight&hide_border=true" alt="streak" loading="lazy"/>
+        <div class="counter" id="s-following">1</div>
+        <div data-i18n-text="followingLabel">正在关注</div>
       </div>
     </div>
+    <div class="card" style="margin-top:16px;">
+      <h3 data-i18n-text="langsTitle" style="margin-bottom:14px;color:var(--accent);font-size:18px;">常用语言</h3>
+      <div id="langBars"></div>
+    </div>
     <div class="card" style="margin-top:16px; text-align:center;">
-      <img src="https://github-profile-trophy.vercel.app/?username=Wolfzzzzz&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4" alt="trophies" loading="lazy"/>
+      <div class="counter" id="vcounter" style="margin-bottom:8px;">0</div>
+      <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="views" loading="lazy" onerror="this.style.display='none'"/>
     </div>
   </section>
 
@@ -290,6 +301,11 @@ const I18N = {
     aboutFun: "⚡ 趣闻：业余时间最爱折腾可视化与前端小玩具 ✨",
     techTitle: "技术栈",
     statsTitle: "数据看板",
+    followersLabel: "关注者",
+    starsLabel: "获得 Star",
+    reposLabel: "公开仓库",
+    followingLabel: "正在关注",
+    langsTitle: "常用语言",
     viewsLabel: "累计访客",
     reposTitle: "精选仓库",
     connectTitle: "联系我",
@@ -312,6 +328,11 @@ const I18N = {
     aboutFun: "⚡ Fun fact: I love building data-viz and front-end toys in my free time ✨",
     techTitle: "Tech & Tools",
     statsTitle: "Live Dashboard",
+    followersLabel: "Followers",
+    starsLabel: "Stars earned",
+    reposLabel: "Public repos",
+    followingLabel: "Following",
+    langsTitle: "Top Languages",
     viewsLabel: "Total Visitors",
     reposTitle: "Featured Repositories",
     connectTitle: "Connect",
@@ -334,6 +355,11 @@ const I18N = {
     aboutFun: "⚡ 趣聞：業餘時間最愛折腾可視化與前端小玩具 ✨",
     techTitle: "技術棧",
     statsTitle: "數據看板",
+    followersLabel: "關注者",
+    starsLabel: "獲得 Star",
+    reposLabel: "公開倉庫",
+    followingLabel: "正在關注",
+    langsTitle: "常用語言",
     viewsLabel: "累計訪客",
     reposTitle: "精選倉庫",
     connectTitle: "聯絡我",
@@ -356,6 +382,11 @@ const I18N = {
     aboutFun: "⚡ 趣聞：業餘最鍾意整可視化同前端小玩具 ✨",
     techTitle: "技術棧",
     statsTitle: "數據睇板",
+    followersLabel: "關注者",
+    starsLabel: "攞到 Star",
+    reposLabel: "公開倉庫",
+    followingLabel: "跟緊",
+    langsTitle: "常用語言",
     viewsLabel: "累計訪客",
     reposTitle: "精選倉庫",
     connectTitle: "搵我",
@@ -457,6 +488,57 @@ function animateCounter() {
   }, 22);
 }
 
+/* ============ Live GitHub stats (self-rendered, no external image hosts) ============ */
+const LANG_COLORS = {
+  JavaScript: "#f1e05a", TypeScript: "#3178c6", HTML: "#e34c26", CSS: "#563d7c",
+  Python: "#3572A5", C: "#555555", "C++": "#f34b7d", "C#": "#178600", Java: "#b07219",
+  Go: "#00ADD8", Rust: "#dea584", Shell: "#89e051", Vue: "#41b883", Ruby: "#701516",
+  PHP: "#4F5D95", Swift: "#F05138", Kotlin: "#A97BFF", Dart: "#00B4AB", Scala: "#c22d40"
+};
+const FALLBACK = {
+  followers: 0, following: 1, public_repos: 32, stars: 1,
+  langs: [["HTML",20,"#e34c26"],["CSS",3,"#563d7c"],["TypeScript",1,"#3178c6"],["JavaScript",1,"#f1e05a"]]
+};
+function renderStats(d) {
+  document.getElementById("s-followers").textContent = (d.followers || 0).toLocaleString();
+  document.getElementById("s-following").textContent = (d.following || 0).toLocaleString();
+  document.getElementById("s-repos").textContent = (d.public_repos || 0).toLocaleString();
+  document.getElementById("s-stars").textContent = (d.stars || 0).toLocaleString();
+  renderLangs(d.langs || []);
+}
+function renderLangs(langs) {
+  const box = document.getElementById("langBars");
+  if (!langs.length) { box.innerHTML = ""; return; }
+  const total = langs.reduce((a, b) => a + b[1], 0) || 1;
+  box.innerHTML = langs.map(([name, cnt, color]) => {
+    const pct = (cnt / total * 100).toFixed(1);
+    return '<div class="langrow"><span class="langname">' + name + '</span>' +
+      '<div class="langtrack"><div class="langfill" style="background:' + (color || "#8b949e") + '"></div></div>' +
+      '<span class="langpct">' + pct + '%</span></div>';
+  }).join("");
+  // animate widths after paint
+  requestAnimationFrame(() => {
+    const fills = box.querySelectorAll(".langfill");
+    langs.forEach((l, i) => { if (fills[i]) fills[i].style.width = (l[1] / total * 100).toFixed(1) + "%"; });
+  });
+}
+function fetchStats() {
+  if (REDUCED) { renderStats(FALLBACK); return; }
+  const U = "https://api.github.com/users/Wolfzzzzz";
+  const R = "https://api.github.com/users/Wolfzzzzz/repos?per_page=100&type=owner";
+  fetch(U).then(r => r.json()).then(u => {
+    const base = { followers: u.followers, following: u.following, public_repos: u.public_repos, stars: FALLBACK.stars };
+    fetch(R).then(r => r.json()).then(repos => {
+      if (!Array.isArray(repos)) { renderStats(base); return; }
+      let stars = 0; const map = {};
+      repos.forEach(rp => { stars += rp.stargazers_count || 0; if (rp.language) map[rp.language] = (map[rp.language] || 0) + 1; });
+      const langs = Object.entries(map).sort((a, b) => b[1] - a[1]).slice(0, 6)
+        .map(([n, c]) => [n, c, LANG_COLORS[n] || "#8b949e"]);
+      renderStats({ followers: u.followers, following: u.following, public_repos: u.public_repos, stars, langs });
+    }).catch(() => renderStats(base));
+  }).catch(() => renderStats(FALLBACK));
+}
+
 /* ============ Scroll progress + back to top ============ */
 const progress = document.getElementById("progress");
 const toTop = document.getElementById("toTop");
@@ -533,7 +615,7 @@ function draw() {
 }
 
 function startParticles() {
-  if (REDUCED) { draw(); cancelAnimationFrame(rafId); return; } // single static frame
+  if (REDUCED) { draw(); cancelAnimationFrame(rafId); return; }
   if (!rafId) rafId = requestAnimationFrame(draw);
 }
 function stopParticles() { running = false; cancelAnimationFrame(rafId); rafId = null; }
@@ -546,6 +628,7 @@ startParticles();
 /* ============ init ============ */
 applyLang(CUR);
 animateCounter();
+fetchStats();
 onScroll();
 </script>
 </body>
