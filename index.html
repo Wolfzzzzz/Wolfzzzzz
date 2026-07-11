@@ -143,12 +143,33 @@
   .badges img { transition: transform .25s ease; }
   .badges img:hover { transform: scale(1.08) translateY(-3px); }
 
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 720px){ .stats { grid-template-columns: 1fr; } }
-  .stats .card { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .counter { font-size: 34px; font-weight: 800;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 720px){ .stats { grid-template-columns: 1fr 1fr; } }
+  .stats .card {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    position: relative; overflow: hidden; padding: 22px 16px;
+  }
+  /* neon top edge that lights up on hover */
+  .stats .card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    opacity: .35; transition: opacity .3s ease;
+  }
+  .stats .card:hover::before { opacity: 1; }
+  .stat-ico { font-size: 22px; line-height: 1; filter: drop-shadow(0 0 8px rgba(88,166,255,.5)); }
+  .stat-label { font-size: 12.5px; letter-spacing: .5px; color: var(--muted); text-transform: uppercase; }
+  .counter {
+    font-size: clamp(30px, 5vw, 40px); font-weight: 800; line-height: 1.05;
+    font-variant-numeric: tabular-nums; font-feature-settings: "tnum";
+    font-family: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: -0.5px;
+    background: linear-gradient(120deg, var(--accent), var(--accent2) 55%, var(--accent3));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 14px rgba(88,166,255,.35));
+    transition: filter .3s ease, transform .3s ease;
+  }
+  .stats .card:hover .counter { filter: drop-shadow(0 0 22px rgba(88,166,255,.6)); transform: scale(1.06); }
+  #vcounter { font-size: clamp(26px, 4vw, 34px); }
   .langrow { display: flex; align-items: center; gap: 10px; margin: 9px 0; font-size: 14px; }
   .langname { width: 96px; flex: none; color: var(--text); }
   .langtrack { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
@@ -244,29 +265,34 @@
     <h2 class="title" data-i18n-text="statsTitle">数据看板</h2>
     <div class="stats">
       <div class="card">
+        <div class="stat-ico">👥</div>
         <div class="counter" id="s-followers">0</div>
-        <div data-i18n-text="followersLabel">关注者</div>
+        <div class="stat-label" data-i18n-text="followersLabel">关注者</div>
       </div>
       <div class="card">
+        <div class="stat-ico">⭐</div>
         <div class="counter" id="s-stars">1</div>
-        <div data-i18n-text="starsLabel">获得 Star</div>
+        <div class="stat-label" data-i18n-text="starsLabel">获得 Star</div>
       </div>
       <div class="card">
+        <div class="stat-ico">📦</div>
         <div class="counter" id="s-repos">32</div>
-        <div data-i18n-text="reposLabel">公开仓库</div>
+        <div class="stat-label" data-i18n-text="reposLabel">公开仓库</div>
       </div>
       <div class="card">
+        <div class="stat-ico">🧭</div>
         <div class="counter" id="s-following">1</div>
-        <div data-i18n-text="followingLabel">正在关注</div>
+        <div class="stat-label" data-i18n-text="followingLabel">正在关注</div>
       </div>
     </div>
     <div class="card" style="margin-top:16px;">
       <h3 data-i18n-text="langsTitle" style="margin-bottom:14px;color:var(--accent);font-size:18px;">常用语言</h3>
       <div id="langBars"></div>
     </div>
-    <div class="card" style="margin-top:16px; text-align:center;">
-      <div class="counter" id="vcounter" style="margin-bottom:8px;">0</div>
-      <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="views" loading="lazy" onerror="this.style.display='none'"/>
+    <div class="card" style="margin-top:16px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px;">
+      <div class="stat-ico">👀</div>
+      <div class="counter" id="vcounter">0</div>
+      <div class="stat-label" data-i18n-text="viewsLabel">累计访客</div>
     </div>
   </section>
 
