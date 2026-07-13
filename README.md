@@ -1,92 +1,54 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0e75b6&height=120&section=header" alt="banner"/>
-
 <div align="center">
 
-## 🌐 炫酷多语主页 · Multilingual Page
-### 👉 **https://wolfzzzzz.github.io/Wolfzzzzz/**
-> 超炫粒子动画 · 打字机 · 玻璃拟态 · 简体 / English / 繁體 / 粵語 四语动态切换
+# Wolfzzzzz
+
+**Developer · Frontend & Data Visualization**
+
+🌐 [Multilingual Profile Page](https://wolfzzzzz.github.io/Wolfzzzzz/) — 简体 / English / 繁體 / 粵語
+
+[![GitHub followers](https://img.shields.io/github/followers/Wolfzzzzz?style=social)](https://github.com/Wolfzzzzz?tab=followers)
+[![Profile views](https://komarev.com/ghpvc/?username=Wolfzzzzz&color=58a6ff&style=flat-square)]()
 
 </div>
 
-<div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=28&duration=3000&pause=800&color=58A6FF&center=true&vCenter=true&width=600&lines=Hi+%F0%9F%91%8B+I'm+Wolf;Welcome+to+my+GitHub;Building+cool+things+one+commit+at+a+time" alt="Typing SVG" />
-</div>
+---
 
-<h1 align="center">@Wolfzzzzz</h1>
+### 👋 About Me
 
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=Wolfzzzzz&label=Profile%20views&color=0e75b6&style=flat" alt="profile views" />
-  <img src="https://img.shields.io/badge/Follow%20on%20GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="follow" />
-</p>
+I'm a developer focused on building small web projects, visualization tools, and learning in public.
 
-## 👨‍💻 About Me
+- 🔭 Working on chart / visualization tools and mini web apps
+- 🌱 Learning TypeScript, React & Swift
+- 💬 Ask me about web dev, data charts, and side projects
 
-👋 Hey, I'm **Wolf** — a developer who loves building small web projects and learning in public.
+---
 
-🔭 Working on chart/visualization tools and mini web apps
-🌱 Learning JavaScript, TypeScript & front-end craft
-💬 Ask me about web dev, data charts, and side projects
-📫 Reach me: GitHub DMs are open
-⚡ 业余时间喜欢折腾可视化与前端小玩具 ✨
+### 🛠️ Tech
 
-## 🛠️ Tech & Tools
+`JavaScript` `TypeScript` `HTML/CSS` `Node.js` `Python` `React` `Swift` `Git` `Docker`
 
-<p align="center">
-![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
-![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![Node.js](https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Git](https://img.shields.io/badge/-Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![Linux](https://img.shields.io/badge/-Linux-FCC624?style=for-the-badge&logo=linux&logoColor=white)
-![macOS](https://img.shields.io/badge/-macOS-000000?style=for-the-badge&logo=apple&logoColor=white)
-</p>
+---
 
-## 📊 GitHub Stats
+### 📊 GitHub
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Wolfzzzzz&show_icons=true&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=true" alt="stats" height="180"/>
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Wolfzzzzz&layout=compact&theme=tokyonight&hide_border=true" alt="langs" height="180"/>
-</p>
+| <img align="center" src="https://github-readme-stats.vercel.app/api?username=Wolfzzzzz&show_icons=true&theme=dark&hide_border=true&bg_color=0d1117" alt="stats" /> | <img align="center" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Wolfzzzzz&layout=compact&theme=dark&hide_border=true&bg_color=0d1117" alt="langs" /> |
+| ------------- | ------------- |
 
-<p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Wolfzzzzz&theme=tokyonight&hide_border=true" alt="streak"/>
-</p>
+---
 
-<p align="center">
-https://github-profile-trophy.vercel.app/?username=Wolfzzzzz&theme=tokyonight&no-frame=true&no-bg=true&margin-w=4
-</p>
+### 📌 Featured Projects
 
-## 📈 Contribution Activity
-
-<p align="center">
-  <img src="https://github-readme-activity-graph.vercel.app/graph?username=Wolfzzzzz&theme=tokyonight&hide_border=true" alt="activity graph"/>
-</p>
-
-## 🐍 Contribution Snake
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Wolfzzzzz/Wolfzzzzz/output/github-contribution-grid-snake.svg" alt="snake"/>
-</p>
-
-## ⭐ Featured Repositories
-
-- [chartnew-test001](https://github.com/Wolfzzzzz/chartnew-test001) — `https://github.com/Wolfzzzzz/chartnew-test001`
-- [ChemPedia](https://github.com/Wolfzzzzz/ChemPedia) — `https://github.com/Wolfzzzzz/ChemPedia`
-- [ProfileWolfzzzzz](https://github.com/Wolfzzzzz/ProfileWolfzzzzz) — `https://github.com/Wolfzzzzz/ProfileWolfzzzzz`
-- [aviationenthusiast2025](https://github.com/Wolfzzzzz/aviationenthusiast2025) — `https://github.com/Wolfzzzzz/aviationenthusiast2025`
-
-## 🔗 Connect
-
-<p align="center">
-  [GitHub](https://github.com/Wolfzzzzz)
-</p>
+| Project | Description |
+|---------|-------------|
+| [ChemPedia](https://github.com/Wolfzzzzz/ChemPedia) | Chemistry encyclopedia, 35+ tools, React PWA |
+| [CameraGuide](https://github.com/Wolfzzzzz/CameraGuide) | macOS + iOS dual-platform camera encyclopedia |
+| [chartnew-test001](https://github.com/Wolfzzzzz/chartnew-test001) | Chart & visualization experiments |
+| [aviationenthusiast2025](https://github.com/Wolfzzzzz/aviationenthusiast2025) | Aviation enthusiast 2025 collection |
 
 ---
 
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0e75b6&height=100&section=footer" alt="footer"/>
+  <sub>🌐 <a href="https://wolfzzzzz.github.io/Wolfzzzzz/">View the interactive multilingual page</a></sub>
   <br/>
-  <sub>⭐ Thanks for visiting — consider following and starring my repos! ⭐</sub>
+  <sub>© 2026 Wolfzzzzz</sub>
 </div>
