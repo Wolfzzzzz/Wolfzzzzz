@@ -5,16 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Wolfzzzzz · 主页</title>
 <meta name="description" content="Wolfzzzzz's GitHub profile — projects, stats, and more." />
-<meta name="theme-color" content="#0d1117" />
+<meta name="theme-color" content="#080c1a" />
 <style>
   :root {
-    --bg: #0d1117;
-    --border: #30363d;
-    --text: #e6edf3;
-    --text2: #8b949e;
-    --link: #58a6ff;
-    --card: #161b22;
-    --radius: 12px;
+    --bg: #080c1a;
+    --surface: #0f1424;
+    --surface2: #1a1f35;
+    --border: rgba(255,255,255,.06);
+    --border-hover: rgba(96,165,250,.3);
+    --text: #e8edf5;
+    --text2: #8892b0;
+    --text3: #5a6480;
+    --accent: #60a5fa;
+    --accent2: #a78bfa;
+    --accent3: #34d399;
+    --green: #22c55e;
+    --red: #ef4444;
+    --radius: 14px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -24,152 +31,230 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--link); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  a { color: var(--accent); text-decoration: none; transition: color .15s; }
+  a:hover { color: #93c5fd; text-decoration: underline; }
+
+  /* Background glow */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(600px circle at 20% 15%, rgba(96,165,250,.06), transparent 60%),
+      radial-gradient(500px circle at 80% 20%, rgba(167,139,250,.04), transparent 60%),
+      radial-gradient(700px circle at 50% 80%, rgba(52,211,153,.04), transparent 60%);
+  }
 
   /* Nav */
   nav {
     border-bottom: 1px solid var(--border);
-    background: var(--bg);
-    padding: 0 24px;
+    background: rgba(8,12,26,.8);
+    backdrop-filter: blur(16px);
+    padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
+    height: 60px;
+    position: sticky; top: 0; z-index: 100;
   }
-  .brand { font-weight: 600; font-size: 16px; color: var(--text); }
+  .brand {
+    font-weight: 700; font-size: 17px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
   .langs { display: flex; gap: 4px; }
   .langs button {
-    background: transparent; color: var(--text2);
-    border: 1px solid transparent; border-radius: 6px;
-    padding: 4px 10px; font-size: 13px; cursor: pointer;
-    transition: all .15s ease;
+    background: transparent; color: var(--text3);
+    border: 1px solid transparent; border-radius: 8px;
+    padding: 5px 12px; font-size: 13px; cursor: pointer;
+    transition: all .2s ease; font-weight: 500;
   }
-  .langs button:hover { color: var(--text); border-color: var(--border); }
+  .langs button:hover { color: var(--text); border-color: rgba(255,255,255,.12); }
   .langs button.active {
-    color: var(--text); border-color: var(--border);
-    background: rgba(255,255,255,.06);
+    color: var(--accent); border-color: rgba(96,165,250,.25);
+    background: rgba(96,165,250,.08);
   }
 
   /* Layout */
-  main { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+  main { max-width: 1000px; margin: 0 auto; padding: 48px 28px 64px; }
 
   /* Hero */
-  .hero { display: flex; align-items: center; gap: 24px; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
-  .avatar { width: 96px; height: 96px; border-radius: 50%; flex-shrink: 0; overflow: hidden; border: 2px solid var(--border); }
+  .hero {
+    display: flex; align-items: center; gap: 32px;
+    margin-bottom: 56px; padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -1px; left: 0; width: 120px; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+  }
+  .avatar-wrap {
+    position: relative; flex-shrink: 0;
+  }
+  .avatar-wrap::before {
+    content: ''; position: absolute; inset: -3px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), transparent 60%);
+    opacity: .6;
+  }
+  .avatar {
+    width: 100px; height: 100px; border-radius: 50%; overflow: hidden;
+    border: 3px solid var(--bg); position: relative; z-index: 1;
+  }
   .avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .hero-text { flex: 1; }
-  .hero-text h1 { font-size: 28px; font-weight: 600; margin-bottom: 4px; }
-  .hero-text .bio { color: var(--text2); font-size: 15px; margin-bottom: 12px; }
-  .hero-links { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; }
-  .hero-links a { color: var(--text2); display: inline-flex; align-items: center; gap: 4px; }
-  .hero-links a:hover { color: var(--link); text-decoration: none; }
+  .hero-text { flex: 1; min-width: 0; }
+  .hero-text h1 { font-size: 32px; font-weight: 700; margin-bottom: 6px; letter-spacing: -.3px; }
+  .hero-text .bio { color: var(--text2); font-size: 16px; margin-bottom: 16px; }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: var(--text3); }
+  .hero-links a { color: var(--text3); display: inline-flex; align-items: center; gap: 6px; transition: color .2s; }
+  .hero-links a:hover { color: var(--accent); text-decoration: none; }
+  .hero-links a svg { opacity: .7; }
 
   /* Sections */
-  section { margin-bottom: 40px; }
-  .section-title {
-    font-size: 18px; font-weight: 600; margin-bottom: 16px;
-    display: flex; align-items: center; gap: 8px;
+  section { margin-bottom: 48px; }
+  .section-head {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px; position: relative;
+  }
+  .section-head h2 {
+    font-size: 18px; font-weight: 600;
+    background: linear-gradient(135deg, var(--text), var(--text2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-accent {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
   }
 
   /* Cards */
   .card {
-    background: var(--card);
+    background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 20px;
-    transition: border-color .15s ease;
+    padding: 24px;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
   }
-  .card:hover { border-color: var(--text2); }
+  .card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.3);
+  }
 
-  /* Stats grid */
+  /* Stats */
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media (max-width: 640px){ .stats { grid-template-columns: 1fr 1fr; } }
   .stat-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px; text-align: center; transition: border-color .15s ease;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 16px; text-align: center;
+    transition: border-color .2s ease, transform .2s ease;
+    position: relative; overflow: hidden;
   }
-  .stat-card:hover { border-color: var(--link); }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0; transition: opacity .3s;
+  }
+  .stat-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+  .stat-card:hover::before { opacity: .6; }
   .stat-num {
-    font-size: 28px; font-weight: 700; line-height: 1.2;
+    font-size: 30px; font-weight: 800; line-height: 1.15;
     font-variant-numeric: tabular-nums;
     font-family: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
-    color: var(--text);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .stat-label { font-size: 13px; color: var(--text2); margin-top: 2px; }
+  .stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; font-weight: 500; }
 
-  /* Lang bars */
-  .langrow { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; }
-  .langname { width: 100px; flex: none; color: var(--text); }
-  .langtrack { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
-  .langfill { height: 100%; border-radius: 99px; width: 0; transition: width 1s ease; }
-  .langpct { width: 44px; flex: none; text-align: right; color: var(--text2); }
+  /* Visitor */
+  .visitor-card {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: var(--surface);
+    border: 1px dashed rgba(255,255,255,.08);
+    border-radius: var(--radius);
+    padding: 14px; margin-top: 12px;
+  }
+  .visitor-card .stat-label { margin: 0; }
+  .visitor-card .stat-num { font-size: 22px; }
 
   /* About */
-  .about-text { font-size: 15px; color: var(--text2); line-height: 1.7; }
-  .about-text strong { color: var(--text); }
+  .about-text { font-size: 15px; color: var(--text2); line-height: 1.8; }
+  .about-text strong { color: var(--text); font-weight: 600; }
 
   /* Skills */
   .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
   .skill-tag {
-    background: rgba(88,166,255,.1); color: var(--link);
-    border: 1px solid rgba(88,166,255,.2); border-radius: 6px;
-    padding: 4px 12px; font-size: 13px;
+    background: rgba(96,165,250,.08);
+    color: var(--accent);
+    border: 1px solid rgba(96,165,250,.15);
+    border-radius: 8px;
+    padding: 5px 14px; font-size: 13px; font-weight: 500;
+    transition: all .2s;
   }
+  .skill-tag:hover { background: rgba(96,165,250,.15); border-color: rgba(96,165,250,.3); }
 
-  /* Visitor */
-  .visitor-card {
-    display: flex; align-items: center; justify-content: center; gap: 16px;
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px; margin-top: 12px;
-  }
-  .visitor-card .stat-num { font-size: 22px; }
+  /* Lang bars */
+  .langrow { display: flex; align-items: center; gap: 10px; padding: 7px 0; font-size: 14px; }
+  .langrow:last-child { padding-bottom: 0; }
+  .langname { width: 110px; flex: none; color: var(--text); font-weight: 500; }
+  .langtrack { flex: 1; height: 8px; background: rgba(255,255,255,.06); border-radius: 99px; overflow: hidden; }
+  .langfill { height: 100%; border-radius: 99px; width: 0; transition: width 1.2s cubic-bezier(.22,.7,.35,1); }
+  .langpct { width: 44px; flex: none; text-align: right; color: var(--text3); font-family: "SF Mono", ui-monospace, monospace; font-size: 13px; }
 
   /* Featured repos */
-  .featured-repos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  @media (max-width: 720px){ .featured-repos { grid-template-columns: 1fr; } }
+  .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 720px){ .featured-grid { grid-template-columns: 1fr; } }
   .repo-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 16px; display: block; color: inherit;
-    transition: border-color .15s ease, transform .15s ease;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px; display: block; color: inherit;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
   }
-  .repo-card:hover { border-color: var(--link); text-decoration: none; transform: translateY(-2px); }
-  .repo-card h3 { color: var(--link); font-size: 15px; font-weight: 600; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .repo-card p { color: var(--text2); font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .repo-meta { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text2); flex-wrap: wrap; }
+  .repo-card:hover { border-color: var(--border-hover); text-decoration: none; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+  .repo-card h3 { color: var(--accent); font-size: 15px; font-weight: 600; margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .repo-card p { color: var(--text2); font-size: 13px; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 39px; }
+  .repo-meta { display: flex; gap: 14px; margin-top: 10px; font-size: 12px; color: var(--text3); flex-wrap: wrap; align-items: center; }
   .repo-meta span { display: inline-flex; align-items: center; gap: 4px; }
   .lang-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-  .star-icon, .fork-icon { flex-shrink: 0; }
 
   /* Repos grid */
-  .repos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 640px){ .repos { grid-template-columns: 1fr; } }
+  .repos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px){ .repos-grid { grid-template-columns: 1fr; } }
 
-  /* Activity feed */
+  /* Activity */
   .activity { list-style: none; }
   .activity-item {
-    display: flex; gap: 12px; padding: 12px 0;
-    border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,.04);
   }
   .activity-item:last-child { border-bottom: none; }
-  .activity-icon { font-size: 18px; width: 28px; text-align: center; flex-shrink: 0; margin-top: 2px; }
-  .activity-body { flex: 1; font-size: 14px; line-height: 1.5; }
-  .activity-body a { font-weight: 500; }
-  .activity-meta { font-size: 12px; color: var(--text2); margin-top: 2px; }
-  .activity-empty { color: var(--text2); font-size: 14px; padding: 16px 0; text-align: center; }
+  .activity-icon { font-size: 18px; width: 30px; text-align: center; flex-shrink: 0; margin-top: 2px; opacity: .8; }
+  .activity-body { flex: 1; font-size: 14px; line-height: 1.5; color: var(--text2); }
+  .activity-body a { font-weight: 600; }
+  .activity-meta { font-size: 12px; color: var(--text3); margin-top: 3px; }
+  .activity-empty { color: var(--text3); font-size: 14px; padding: 20px 0; text-align: center; }
 
-  /* Loading */
-  .loading { color: var(--text2); font-size: 14px; text-align: center; padding: 16px 0; }
+  .loading { color: var(--text3); font-size: 14px; text-align: center; padding: 20px 0; }
 
   /* Footer */
-  footer { text-align: center; padding: 32px 0; color: var(--text2); font-size: 13px; border-top: 1px solid var(--border); }
+  footer { text-align: center; padding: 40px 0 0; color: var(--text3); font-size: 13px; border-top: 1px solid var(--border); margin-top: 48px; }
 
   /* Reveal */
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.7,.35,1); }
   .reveal.in { opacity: 1; transform: none; }
 
   @media (max-width: 640px) {
-    .hero { flex-direction: column; text-align: center; }
-    .hero-links { justify-content: center; }
+    .hero { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .hero::after { left: 50%; transform: translateX(-50%); }
+    .hero-links { gap: 14px; }
   }
+
+  ::selection { background: rgba(96,165,250,.25); color: var(--text); }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.08); border-radius: 99px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.15); }
 </style>
 </head>
 <body>
@@ -188,11 +273,13 @@
 
   <!-- Hero -->
   <div class="hero">
-    <div class="avatar">
-      <img src="https://github.com/Wolfzzzzz.png?size=200" alt="Wolfzzzzz" onerror="this.style.display='none'" />
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <img src="https://github.com/Wolfzzzzz.png?size=200" alt="Wolfzzzzz" onerror="this.style.display='none'" />
+      </div>
     </div>
     <div class="hero-text">
-      <h1>Wolfzzzzz</h1>
+      <h1 data-i18n-text="name">Wolfzzzzz</h1>
       <p class="bio" data-i18n-text="bio"></p>
       <div class="hero-links">
         <a href="https://github.com/Wolfzzzzz" target="_blank" rel="noopener">
@@ -207,7 +294,10 @@
 
   <!-- Stats -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="statsTitle">📊 数据</h2>
+    <div class="section-head">
+      <h2 data-i18n-text="statsTitle">📊 数据</h2>
+      <span class="section-accent"></span>
+    </div>
     <div class="stats">
       <div class="stat-card">
         <div class="stat-num" id="s-followers">0</div>
@@ -234,7 +324,10 @@
 
   <!-- About -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="aboutTitle">📝 关于</h2>
+    <div class="section-head">
+      <h2 data-i18n-text="aboutTitle">📝 关于</h2>
+      <span class="section-accent"></span>
+    </div>
     <div class="card">
       <div class="about-text" data-i18n-html="aboutBody"></div>
     </div>
@@ -242,45 +335,62 @@
 
   <!-- Skills -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="skillsTitle">🛠️ 技能</h2>
-    <div class="skill-tags" data-i18n="skills">
-      <span class="skill-tag">JavaScript</span>
-      <span class="skill-tag">TypeScript</span>
-      <span class="skill-tag">HTML/CSS</span>
-      <span class="skill-tag">Node.js</span>
-      <span class="skill-tag">Python</span>
-      <span class="skill-tag">React</span>
-      <span class="skill-tag">Swift</span>
-      <span class="skill-tag">Git</span>
-      <span class="skill-tag">Docker</span>
+    <div class="section-head">
+      <h2 data-i18n-text="skillsTitle">🛠️ 技能</h2>
+      <span class="section-accent"></span>
+    </div>
+    <div class="card">
+      <div class="skill-tags">
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">TypeScript</span>
+        <span class="skill-tag">HTML/CSS</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Swift</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Docker</span>
+      </div>
     </div>
   </section>
 
   <!-- Languages -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="langsTitle">🔤 常用语言</h2>
+    <div class="section-head">
+      <h2 data-i18n-text="langsTitle">🔤 常用语言</h2>
+      <span class="section-accent"></span>
+    </div>
     <div class="card">
-      <div id="langBars"></div>
+      <div id="langBars" class="loading" data-i18n-text="loading">加载中...</div>
     </div>
   </section>
 
   <!-- Featured repos -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="featuredTitle">⭐ 精选项目</h2>
-    <div class="featured-repos" id="featuredGrid"><div class="loading" data-i18n-text="loading">加载中...</div></div>
+    <div class="section-head">
+      <h2 data-i18n-text="featuredTitle">⭐ 精选项目</h2>
+      <span class="section-accent"></span>
+    </div>
+    <div class="featured-grid" id="featuredGrid"><div class="loading" data-i18n-text="loading">加载中...</div></div>
   </section>
 
   <!-- All repos -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="reposTitle">📂 全部项目</h2>
-    <div class="repos" id="repoGrid"><div class="loading" data-i18n-text="loading">加载中...</div></div>
+    <div class="section-head">
+      <h2 data-i18n-text="reposTitle">📂 全部项目</h2>
+      <span class="section-accent"></span>
+    </div>
+    <div class="repos-grid" id="repoGrid"><div class="loading" data-i18n-text="loading">加载中...</div></div>
   </section>
 
   <!-- Activity -->
   <section class="reveal">
-    <h2 class="section-title" data-i18n-text="activityTitle">⚡ 最近动态</h2>
+    <div class="section-head">
+      <h2 data-i18n-text="activityTitle">⚡ 最近动态</h2>
+      <span class="section-accent"></span>
+    </div>
     <div class="card">
-      <div id="activityFeed"></div>
+      <div id="activityFeed"><div class="loading" data-i18n-text="loading">加载中...</div></div>
     </div>
   </section>
 
@@ -294,61 +404,64 @@
 /* ============ i18n ============ */
 const I18N = {
   zh: {
+    name: "Wolfzzzzz",
     bio: "喜欢做小项目的开发者 · 前端 & 可视化",
     location: "📍 中国 · 江苏",
     status: "🟢 活跃",
-    statsTitle: "📊 数据",
-    followersLabel: "关注者", starsLabel: "Star", reposLabel: "仓库", followingLabel: "关注中",
+    statsTitle: "数据", followersLabel: "关注者", starsLabel: "Star", reposLabel: "仓库", followingLabel: "关注中",
     viewsLabel: "累计访客",
-    aboutTitle: "📝 关于",
+    aboutTitle: "关于",
     aboutBody: "我是 <strong>Wolfzzzzz</strong>，一名专注于前端开发与数据可视化的开发者。<br><br>喜欢折腾 Web 项目、图表工具，用代码把想法变成看得见的东西。<br>目前在学习 TypeScript、React 和 Swift，持续公开学习中。",
-    skillsTitle: "🛠️ 技能", langsTitle: "🔤 常用语言",
-    featuredTitle: "⭐ 精选项目", reposTitle: "📂 全部项目", activityTitle: "⚡ 最近动态",
+    skillsTitle: "技能", langsTitle: "常用语言",
+    featuredTitle: "精选项目", reposTitle: "全部项目", activityTitle: "最近动态",
     loading: "加载中...", noActivity: "暂无动态",
     stars: "星", forks: "复刻", updated: "更新于",
     eventPush: "推送了", eventCreate: "创建了", eventWatch: "收藏了", eventFork: "派生", eventIssue: "提交了 Issue", eventPR: "提交了 PR", eventDelete: "删除了",
     footer: "© 2026 Wolfzzzzz · Built with GitHub Pages"
   },
   en: {
+    name: "Wolfzzzzz",
     bio: "Developer who likes building small projects · Frontend & Data viz",
     location: "📍 Jiangsu, China", status: "🟢 Active",
-    statsTitle: "📊 Stats",
+    statsTitle: "Stats",
     followersLabel: "Followers", starsLabel: "Stars", reposLabel: "Repos", followingLabel: "Following",
     viewsLabel: "Visitors",
-    aboutTitle: "📝 About",
+    aboutTitle: "About",
     aboutBody: "I'm <strong>Wolfzzzzz</strong>, a developer focused on front-end development and data visualization.<br><br>I enjoy building web projects and visualization tools — turning ideas into something you can see.<br>Currently learning TypeScript, React, and Swift. Learning in public.",
-    skillsTitle: "🛠️ Skills", langsTitle: "🔤 Languages",
-    featuredTitle: "⭐ Featured", reposTitle: "📂 All Projects", activityTitle: "⚡ Recent Activity",
+    skillsTitle: "Skills", langsTitle: "Languages",
+    featuredTitle: "Featured", reposTitle: "All Projects", activityTitle: "Recent Activity",
     loading: "Loading...", noActivity: "No activity yet",
     stars: "stars", forks: "forks", updated: "updated",
     eventPush: "pushed to", eventCreate: "created", eventWatch: "starred", eventFork: "forked", eventIssue: "opened issue in", eventPR: "opened PR in", eventDelete: "deleted",
     footer: "© 2026 Wolfzzzzz · Built with GitHub Pages"
   },
   tw: {
+    name: "Wolfzzzzz",
     bio: "喜歡做小專案的開發者 · 前端 & 視覺化",
     location: "📍 中國 · 江蘇", status: "🟢 活躍",
-    statsTitle: "📊 數據",
+    statsTitle: "數據",
     followersLabel: "關注者", starsLabel: "Star", reposLabel: "倉庫", followingLabel: "關注中",
     viewsLabel: "累計訪客",
-    aboutTitle: "📝 關於",
+    aboutTitle: "關於",
     aboutBody: "我是 <strong>Wolfzzzzz</strong>，專注於前端開發與數據視覺化的開發者。<br><br>喜歡折騰 Web 專案、圖表工具，用程式碼把想法變成看得見的東西。<br>目前在學 TypeScript、React 和 Swift，持續公開學習中。",
-    skillsTitle: "🛠️ 技能", langsTitle: "🔤 常用語言",
-    featuredTitle: "⭐ 精選項目", reposTitle: "📂 全部項目", activityTitle: "⚡ 最近動態",
+    skillsTitle: "技能", langsTitle: "常用語言",
+    featuredTitle: "精選項目", reposTitle: "全部項目", activityTitle: "最近動態",
     loading: "載入中...", noActivity: "暫無動態",
     stars: "星", forks: "復刻", updated: "更新於",
     eventPush: "推送了", eventCreate: "創建了", eventWatch: "收藏了", eventFork: "派生", eventIssue: "提交了 Issue", eventPR: "提交了 PR", eventDelete: "刪除了",
     footer: "© 2026 Wolfzzzzz · Built with GitHub Pages"
   },
   yue: {
+    name: "Wolfzzzzz",
     bio: "鍾意整細規模 Project 嘅開發者 · 前端 & 視覺化",
     location: "📍 中國 · 江蘇", status: "🟢 活躍",
-    statsTitle: "📊 數據",
+    statsTitle: "數據",
     followersLabel: "關注者", starsLabel: "Star", reposLabel: "倉庫", followingLabel: "跟緊",
     viewsLabel: "累計訪客",
-    aboutTitle: "📝 關於",
+    aboutTitle: "關於",
     aboutBody: "我係 <strong>Wolfzzzzz</strong>，專注於前端開發同數據視覺化嘅開發者。<br><br>鍾意整 Web 項目、圖表工具，用代碼將諗法變成睇得到嘅嘢。<br>而家學緊 TypeScript、React 同 Swift，持續公開學習中。",
-    skillsTitle: "🛠️ 技能", langsTitle: "🔤 常用語言",
-    featuredTitle: "⭐ 精選項目", reposTitle: "📂 全部項目", activityTitle: "⚡ 最近動態",
+    skillsTitle: "技能", langsTitle: "常用語言",
+    featuredTitle: "精選項目", reposTitle: "全部項目", activityTitle: "最近動態",
     loading: "載入中...", noActivity: "暫無動態",
     stars: "星", forks: "復刻", updated: "更新於",
     eventPush: "推送咗", eventCreate: "創建咗", eventWatch: "收藏咗", eventFork: "派生咗", eventIssue: "提交咗 Issue", eventPR: "提交咗 PR", eventDelete: "刪除咗",
@@ -359,9 +472,7 @@ const I18N = {
 let CUR = localStorage.getItem("wolf_lang") || "zh";
 if (!I18N[CUR]) CUR = "zh";
 
-function t(key) {
-  return I18N[CUR][key] || key;
-}
+function t(key) { return I18N[CUR][key] || key; }
 
 function applyLang(lang) {
   const d = I18N[lang];
@@ -378,9 +489,7 @@ function applyLang(lang) {
 
 document.querySelectorAll("#langs button").forEach(b => {
   b.addEventListener("click", () => {
-    CUR = b.dataset.lang;
-    localStorage.setItem("wolf_lang", CUR);
-    applyLang(CUR);
+    CUR = b.dataset.lang; localStorage.setItem("wolf_lang", CUR); applyLang(CUR);
   });
 });
 
@@ -403,12 +512,8 @@ function fmtCount(n) {
 }
 
 function eventIcon(type) {
-  const map = {
-    PushEvent: '📝', CreateEvent: '➕', WatchEvent: '⭐',
-    ForkEvent: '🔀', IssuesEvent: '❗', PullRequestEvent: '🔃',
-    DeleteEvent: '🗑️', ReleaseEvent: '📦', PublicEvent: '🌍'
-  };
-  return map[type] || '📌';
+  const m = { PushEvent:'📝', CreateEvent:'➕', WatchEvent:'⭐', ForkEvent:'🔀', IssuesEvent:'❗', PullRequestEvent:'🔃', DeleteEvent:'🗑️', ReleaseEvent:'📦', PublicEvent:'🌍' };
+  return m[type] || '📌';
 }
 
 /* ============ Visitor counter ============ */
@@ -417,10 +522,7 @@ function eventIcon(type) {
   const target = 100 + Math.floor(Math.random() * 900);
   let n = 0;
   const step = Math.max(1, Math.floor(target / 50));
-  const t = setInterval(() => {
-    n += step; if (n >= target) { n = target; clearInterval(t); }
-    el.textContent = n.toLocaleString();
-  }, 20);
+  const t = setInterval(() => { n += step; if (n >= target) { n = target; clearInterval(t); } el.textContent = n.toLocaleString(); }, 20);
 })();
 
 /* ============ GitHub data ============ */
@@ -431,148 +533,86 @@ const LANG_COLORS = {
   PHP:"#4F5D95", Ruby:"#701516", Kotlin:"#A97BFF", Dart:"#00B4AB"
 };
 const FALLBACK = {
-  followers: 0, following: 1, public_repos: 32, stars: 1,
-  langs: [["HTML",20,"#e34c26"],["CSS",3,"#563d7c"],["TypeScript",1,"#3178c6"],["JavaScript",1,"#f1e05a"]]
+  followers:0, following:1, public_repos:32, stars:1,
+  langs:[["HTML",20,"#e34c26"],["CSS",3,"#563d7c"],["TypeScript",1,"#3178c6"],["JavaScript",1,"#f1e05a"]]
 };
 
-/* Render repo card HTML */
 function repoHTML(r, compact) {
   const lang = r.language || 'Unknown';
   const color = LANG_COLORS[lang] || '#8b949e';
-  if (compact) {
-    return '<div class="repo-card"><h3>' + r.name + '</h3>' +
-      (r.description ? '<p>' + r.description.slice(0, 100) + '</p>' : '<p style="color:var(--border);font-style:italic">No description</p>') +
-      '<div class="repo-meta">' +
-      '<span><span class="lang-dot" style="background:' + color + '"></span>' + lang + '</span>' +
-      '<span><svg class="star-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>' + fmtCount(r.stargazers_count) + '</span>' +
-      '<span><svg class="fork-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM3.25 3.5a.75.75 0 100 1.5.75.75 0 000-1.5zm6.75.75a.75.75 0 101.5 0 .75.75 0 00-1.5 0zM8 13a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>' + fmtCount(r.forks_count) + '</span>' +
-      '<span>' + timeAgo(r.updated_at) + '</span>' +
-      '</div></div>';
-  }
+  const desc = r.description ? r.description.slice(0, 100) : '';
+  const starsSVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg>';
+  const forkSVG = '<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-.878a2.25 2.25 0 111.5 0v.878a2.25 2.25 0 01-2.25 2.25h-1.5v2.128a2.251 2.251 0 11-1.5 0V8.5h-1.5A2.25 2.25 0 013.5 6.25v-.878a2.25 2.25 0 111.5 0zM3.25 3.5a.75.75 0 100 1.5.75.75 0 000-1.5zm6.75.75a.75.75 0 101.5 0 .75.75 0 00-1.5 0zM8 13a.75.75 0 100 1.5.75.75 0 000-1.5z"/></svg>';
   return '<div class="repo-card"><h3>' + r.name + '</h3>' +
-    (r.description ? '<p>' + r.description.slice(0, 120) + '</p>' : '<p style="color:var(--border);font-style:italic">No description</p>') +
+    (desc ? '<p>' + desc + '</p>' : '<p style="color:var(--text3);font-style:italic">No description</p>') +
     '<div class="repo-meta">' +
     '<span><span class="lang-dot" style="background:' + color + '"></span>' + lang + '</span>' +
-    '<span>⭐ ' + fmtCount(r.stargazers_count) + '</span>' +
-    '<span>⑂ ' + fmtCount(r.forks_count) + '</span>' +
+    '<span>' + starsSVG + fmtCount(r.stargazers_count) + '</span>' +
+    '<span>' + forkSVG + fmtCount(r.forks_count) + '</span>' +
     '<span>' + timeAgo(r.updated_at) + '</span>' +
     '</div></div>';
 }
 
-/* Fetch all GitHub data in parallel */
 async function fetchAllData() {
-  const userPromise = fetch('https://api.github.com/users/Wolfzzzzz').then(r => r.json()).catch(() => ({}));
-  const reposPromise = fetch('https://api.github.com/users/Wolfzzzzz/repos?per_page=50&type=owner&sort=updated').then(r => r.json()).catch(() => []);
-  const eventsPromise = fetch('https://api.github.com/users/Wolfzzzzz/events?per_page=15').then(r => r.json()).catch(() => []);
+  const userP = fetch('https://api.github.com/users/Wolfzzzzz').then(r=>r.json()).catch(()=>({}));
+  const reposP = fetch('https://api.github.com/users/Wolfzzzzz/repos?per_page=50&type=owner&sort=updated').then(r=>r.json()).catch(()=>[]);
+  const eventsP = fetch('https://api.github.com/users/Wolfzzzzz/events?per_page=15').then(r=>r.json()).catch(()=>[]);
+  const [user, repos, events] = await Promise.all([userP, reposP, eventsP]);
 
-  const [user, repos, events] = await Promise.all([userPromise, reposPromise, eventsPromise]);
-
-  // Stats + langs
+  // stats
   if (user.login) {
-    let stars = 0; const langMap = {};
-    const validRepos = Array.isArray(repos) ? repos : [];
-    validRepos.forEach(rp => {
-      stars += rp.stargazers_count || 0;
-      if (rp.language) langMap[rp.language] = (langMap[rp.language] || 0) + 1;
-    });
-    const langs = Object.entries(langMap).sort((a, b) => b[1] - a[1]).slice(0, 6)
-      .map(([n, c]) => [n, c, LANG_COLORS[n] || "#8b949e"]);
-    renderStats({
-      followers: user.followers, following: user.following,
-      public_repos: user.public_repos, stars, langs
-    });
-  } else {
-    renderStats(FALLBACK);
-  }
+    let stars=0; const lm={};
+    (Array.isArray(repos)?repos:[]).forEach(rp=>{stars+=rp.stargazers_count||0; if(rp.language)lm[rp.language]=(lm[rp.language]||0)+1;});
+    const langs=Object.entries(lm).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([n,c])=>[n,c,LANG_COLORS[n]||"#8b949e"]);
+    renderStats({followers:user.followers,following:user.following,public_repos:user.public_repos,stars,langs});
+  } else renderStats(FALLBACK);
 
-  // Repos
-  const validRepos = (Array.isArray(repos) ? repos : [])
-    .filter(r => !r.fork && r.name !== 'Wolfzzzzz')
-    .sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0));
-
-  const top = validRepos.slice(0, 3);
-  const rest = validRepos.slice(3, 11);
-
-  renderFeatured(top);
-  renderAllRepos(rest);
-
-  // Activity
-  const validEvents = Array.isArray(events) ? events : [];
-  renderActivity(validEvents.slice(0, 10));
+  const valid=(Array.isArray(repos)?repos:[]).filter(r=>!r.fork&&r.name!=='Wolfzzzzz').sort((a,b)=>(b.stargazers_count||0)-(a.stargazers_count||0));
+  renderFeatured(valid.slice(0,3));
+  renderAllRepos(valid.slice(3,11));
+  renderActivity((Array.isArray(events)?events:[]).slice(0,10));
 }
 
 function renderStats(d) {
-  document.getElementById("s-followers").textContent = (d.followers || 0).toLocaleString();
-  document.getElementById("s-following").textContent = (d.following || 0).toLocaleString();
-  document.getElementById("s-repos").textContent = (d.public_repos || 0).toLocaleString();
-  document.getElementById("s-stars").textContent = (d.stars || 0).toLocaleString();
-  renderLangs(d.langs || []);
+  ['followers','following','public_repos','stars'].forEach(k=>{
+    const el=document.getElementById('s-'+k.replace('public_',''));
+    if(el) el.textContent=(d[k]||0).toLocaleString();
+  });
+  renderLangs(d.langs||[]);
 }
 function renderLangs(langs) {
-  const box = document.getElementById("langBars");
-  if (!langs.length) { box.innerHTML = ""; return; }
-  const total = langs.reduce((a, b) => a + b[1], 0) || 1;
-  box.innerHTML = langs.map(([name, cnt, color]) => {
-    const pct = (cnt / total * 100).toFixed(1);
-    return '<div class="langrow"><span class="langname">' + name + '</span>' +
-      '<div class="langtrack"><div class="langfill" style="background:' + (color || "#8b949e") + '"></div></div>' +
-      '<span class="langpct">' + pct + '%</span></div>';
-  }).join("");
-  requestAnimationFrame(() => {
-    const fills = box.querySelectorAll(".langfill");
-    langs.forEach((l, i) => { if (fills[i]) fills[i].style.width = (l[1] / total * 100).toFixed(1) + "%"; });
-  });
+  const box=document.getElementById('langBars');
+  if(!langs.length){box.innerHTML='';return;}
+  const total=langs.reduce((a,b)=>a+b[1],0)||1;
+  box.innerHTML=langs.map(([n,c,cl])=>{
+    const p=(c/total*100).toFixed(1);
+    return '<div class="langrow"><span class="langname">'+n+'</span><div class="langtrack"><div class="langfill" style="background:'+(cl||"#8b949e")+'"></div></div><span class="langpct">'+p+'%</span></div>';
+  }).join('');
+  requestAnimationFrame(()=>{const f=box.querySelectorAll('.langfill');langs.forEach((l,i)=>{if(f[i])f[i].style.width=(l[1]/total*100).toFixed(1)+'%';});});
 }
 
 function renderFeatured(repos) {
-  const grid = document.getElementById("featuredGrid");
-  if (!repos.length) {
-    grid.innerHTML = '<p class="loading">' + t('noActivity') + '</p>';
-    return;
-  }
-  grid.innerHTML = repos.map(r => '<a class="repo-card" href="https://github.com/Wolfzzzzz/' + r.name + '" target="_blank" rel="noopener">' + repoHTML(r, true) + '</a>').join('');
+  const grid=document.getElementById('featuredGrid');
+  grid.innerHTML=repos.length?repos.map(r=>'<a class="repo-card" href="https://github.com/Wolfzzzzz/'+r.name+'" target="_blank" rel="noopener">'+repoHTML(r,true)+'</a>').join(''):'<p class="loading">'+t('noActivity')+'</p>';
 }
-
 function renderAllRepos(repos) {
-  const grid = document.getElementById("repoGrid");
-  if (!repos.length) {
-    grid.innerHTML = '<p class="loading">' + t('noActivity') + '</p>';
-    return;
-  }
-  grid.innerHTML = repos.map(r => '<a class="repo-card" href="https://github.com/Wolfzzzzz/' + r.name + '" target="_blank" rel="noopener">' + repoHTML(r, false) + '</a>').join('');
+  const grid=document.getElementById('repoGrid');
+  grid.innerHTML=repos.length?repos.map(r=>'<a class="repo-card" href="https://github.com/Wolfzzzzz/'+r.name+'" target="_blank" rel="noopener">'+repoHTML(r,false)+'</a>').join(''):'<p class="loading">'+t('noActivity')+'</p>';
 }
-
 function renderActivity(events) {
-  const feed = document.getElementById("activityFeed");
-  if (!events.length) {
-    feed.innerHTML = '<div class="activity-empty">' + t('noActivity') + '</div>';
-    return;
-  }
-  feed.innerHTML = '<ul class="activity">' + events.map(e => {
-    const repoName = e.repo ? e.repo.name.replace('Wolfzzzzz/', '') : '';
-    const actionVerb = t('event' + e.type.replace('Event', ''));
-    let detail = '';
-    if (e.type === 'PushEvent' && e.payload && e.payload.commits) {
-      const count = e.payload.commits.length;
-      detail = ' (' + (e.payload.commits[0] ? e.payload.commits[0].message.slice(0, 50) : '') + ')';
-    }
-    const icon = eventIcon(e.type);
-    return '<li class="activity-item">' +
-      '<span class="activity-icon">' + icon + '</span>' +
-      '<div class="activity-body">' +
-      '<a href="https://github.com/Wolfzzzzz/' + repoName + '" target="_blank" rel="noopener">' + repoName + '</a> ' +
-      actionVerb + '<span class="activity-meta"> | ' + timeAgo(e.created_at) + '</span>' +
-      '</div></li>';
-  }).join('') + '</ul>';
+  const feed=document.getElementById('activityFeed');
+  if(!events.length){feed.innerHTML='<div class="activity-empty">'+t('noActivity')+'</div>';return;}
+  feed.innerHTML='<ul class="activity">'+events.map(e=>{
+    const rn=e.repo?e.repo.name.replace('Wolfzzzzz/',''):'';
+    const vb=t('event'+e.type.replace('Event',''));
+    const ic=eventIcon(e.type);
+    return '<li class="activity-item"><span class="activity-icon">'+ic+'</span><div class="activity-body"><a href="https://github.com/Wolfzzzzz/'+rn+'" target="_blank">'+rn+'</a> '+vb+'<div class="activity-meta">'+timeAgo(e.created_at)+'</div></div></li>';
+  }).join('')+'</ul>';
 }
 
-/* ============ Scroll reveal ============ */
-const io = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* ============ init ============ */
 applyLang(CUR);
 fetchAllData();
 </script>
