@@ -3,215 +3,172 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Wolf · GitHub Profile</title>
-<meta name="description" content="Wolf 的 GitHub 主页 — 粒子动画、四语切换、精选仓库与实时数据看板。" />
-<meta name="theme-color" content="#0a0e1a" />
-<link rel="preconnect" href="https://github.com" />
-<link rel="preconnect" href="https://api.github.com" />
-<link rel="preconnect" href="https://komarev.com" />
+<title>Wolfzzzzz · 主页</title>
+<meta name="description" content="Wolfzzzzz's GitHub profile — projects, stats, and more." />
+<meta name="theme-color" content="#0d1117" />
 <style>
   :root {
-    --bg: #0a0e1a;
-    --bg2: #0d1b2a;
-    --accent: #58a6ff;
-    --accent2: #bc8cff;
-    --accent3: #2dd4bf;
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --border: #30363d;
     --text: #e6edf3;
-    --muted: #8b949e;
-    --card: rgba(255,255,255,0.05);
-    --border: rgba(255,255,255,0.1);
+    --text2: #8b949e;
+    --link: #58a6ff;
+    --card: #161b22;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d29922;
+    --red: #f85149;
+    --radius: 12px;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     background: var(--bg);
     color: var(--text);
-    overflow-x: hidden;
     line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
   }
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-  /* scroll progress */
-  #progress {
-    position: fixed; top: 0; left: 0; height: 3px; width: 0%;
-    z-index: 100;
-    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-    box-shadow: 0 0 12px rgba(88,166,255,.6);
-    transition: width .12s linear;
-  }
-
-  #bg {
-    position: fixed; inset: 0; z-index: -2;
-    background: radial-gradient(ellipse at top, var(--bg2), var(--bg) 70%);
-  }
-  /* aurora layers */
-  .aurora {
-    position: fixed; inset: -20%; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(40% 40% at 20% 30%, rgba(88,166,255,0.18), transparent 60%),
-      radial-gradient(38% 38% at 80% 25%, rgba(188,140,255,0.16), transparent 60%),
-      radial-gradient(45% 45% at 55% 80%, rgba(45,212,191,0.14), transparent 60%);
-    filter: blur(48px);
-    animation: drift 18s ease-in-out infinite alternate;
-    will-change: transform;
-  }
-  @keyframes drift {
-    0%   { transform: translate(0,0) scale(1) rotate(0deg); }
-    50%  { transform: translate(2%, -2%) scale(1.08) rotate(3deg); }
-    100% { transform: translate(-3%, 2%) scale(1.05) rotate(-2deg); }
-  }
-
-  /* ---------- Nav / Lang switcher ---------- */
+  /* Nav */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 28px;
-    backdrop-filter: blur(14px);
-    background: rgba(10,14,26,0.55);
     border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
   }
-  .brand { font-weight: 700; letter-spacing: 0.5px; font-size: 18px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .langs { display: flex; gap: 6px; }
+  .brand { font-weight: 600; font-size: 16px; color: var(--text); }
+  .langs { display: flex; gap: 4px; }
   .langs button {
-    background: var(--card); color: var(--muted);
-    border: 1px solid var(--border); border-radius: 999px;
-    padding: 6px 12px; font-size: 13px; cursor: pointer;
-    transition: all .25s ease;
+    background: transparent; color: var(--text2);
+    border: 1px solid transparent; border-radius: 6px;
+    padding: 4px 10px; font-size: 13px; cursor: pointer;
+    transition: all .15s ease;
   }
-  .langs button:hover { color: var(--text); border-color: var(--accent); transform: translateY(-1px); }
+  .langs button:hover { color: var(--text); border-color: var(--border); }
   .langs button.active {
-    color: #fff; border-color: transparent;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    box-shadow: 0 4px 18px rgba(88,166,255,0.4);
+    color: var(--text); border-color: var(--border);
+    background: rgba(255,255,255,.06);
   }
 
-  /* ---------- Layout ---------- */
-  section { max-width: 940px; margin: 0 auto; padding: 90px 24px 40px; }
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+  /* Layout */
+  main { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* Hero */
+  .hero { display: flex; align-items: center; gap: 24px; margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .avatar { width: 96px; height: 96px; border-radius: 50%; flex-shrink: 0; overflow: hidden; border: 2px solid var(--border); }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-text { flex: 1; }
+  .hero-text h1 { font-size: 28px; font-weight: 600; margin-bottom: 4px; }
+  .hero-text .bio { color: var(--text2); font-size: 15px; margin-bottom: 12px; }
+  .hero-links { display: flex; flex-wrap: wrap; gap: 16px; font-size: 14px; }
+  .hero-links a { color: var(--text2); display: inline-flex; align-items: center; gap: 4px; }
+  .hero-links a:hover { color: var(--link); text-decoration: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    transition: all .15s ease; cursor: pointer; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); text-decoration: none;
+  }
+  .btn:hover { border-color: var(--text2); text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: #238636; border-color: rgba(240,246,252,.1); color: #fff; }
+  .btn.primary:hover { background: #2ea043; }
+
+  /* Sections */
+  section { margin-bottom: 40px; }
+  .section-title {
+    font-size: 18px; font-weight: 600; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: border-color .15s ease;
+  }
+  .card:hover { border-color: var(--text2); }
+
+  /* Stats grid */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 640px){ .stats { grid-template-columns: 1fr 1fr; } }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; text-align: center; transition: border-color .15s ease;
+  }
+  .stat-card:hover { border-color: var(--link); }
+  .stat-num {
+    font-size: 28px; font-weight: 700; line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    font-family: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+    color: var(--text);
+  }
+  .stat-label { font-size: 13px; color: var(--text2); margin-top: 2px; }
+
+  /* Lang bars */
+  .langrow { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; }
+  .langname { width: 100px; flex: none; color: var(--text); }
+  .langtrack { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
+  .langfill { height: 100%; border-radius: 99px; width: 0; transition: width 1s ease; }
+  .langpct { width: 44px; flex: none; text-align: right; color: var(--text2); }
+
+  /* Repos grid */
+  .repos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px){ .repos { grid-template-columns: 1fr; } }
+  .repo-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; transition: border-color .15s ease; display: block; color: inherit;
+  }
+  .repo-card:hover { border-color: var(--link); text-decoration: none; }
+  .repo-card h3 { color: var(--link); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .repo-card p { color: var(--text2); font-size: 13px; line-height: 1.5; }
+  .repo-meta { display: flex; gap: 16px; margin-top: 10px; font-size: 12px; color: var(--text2); }
+  .repo-meta span { display: inline-flex; align-items: center; gap: 4px; }
+  .lang-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+  /* About */
+  .about-text { font-size: 15px; color: var(--text2); line-height: 1.7; }
+  .about-text strong { color: var(--text); }
+
+  /* Skills */
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    background: rgba(88,166,255,.1); color: var(--link);
+    border: 1px solid rgba(88,166,255,.2); border-radius: 6px;
+    padding: 4px 12px; font-size: 13px;
+  }
+
+  /* Visitor */
+  .visitor-card {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 16px; margin-top: 12px;
+  }
+  .visitor-card .stat-num { font-size: 22px; }
+
+  /* Footer */
+  footer { text-align: center; padding: 32px 0; color: var(--text2); font-size: 13px; border-top: 1px solid var(--border); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
   .reveal.in { opacity: 1; transform: none; }
 
-  /* ---------- Hero ---------- */
-  .hero { min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center; padding-top: 60px; }
-  .avatar {
-    width: 132px; height: 132px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
-    padding: 4px; margin-bottom: 22px;
-    box-shadow: 0 0 45px rgba(88,166,255,0.5);
-    animation: float 5s ease-in-out infinite;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 48px; font-weight: 800; color: #fff;
-  }
-  .avatar img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--bg); object-fit: cover; }
-  @keyframes float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-12px);} }
-  .hero h1 { font-size: clamp(38px, 8vw, 72px); font-weight: 800; letter-spacing: -1px; text-shadow: 0 0 30px rgba(88,166,255,.25); }
-  .hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
-    -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .typed { font-size: clamp(16px, 3vw, 22px); color: var(--muted); margin-top: 12px; min-height: 30px; }
-  .typed::after { content: "▋"; color: var(--accent); animation: blink 1s step-end infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .cta { margin-top: 30px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-  .btn {
-    padding: 12px 26px; border-radius: 999px; font-weight: 600; font-size: 15px;
-    text-decoration: none; cursor: pointer; border: none; transition: all .25s ease;
-  }
-  .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #fff;
-    box-shadow: 0 8px 24px rgba(88,166,255,0.35); }
-  .btn.primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(88,166,255,0.5); }
-  .btn.ghost { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-  .btn.ghost:hover { border-color: var(--accent); transform: translateY(-3px); }
-
-  h2.title { font-size: clamp(26px, 5vw, 36px); margin-bottom: 26px; position: relative; display: inline-block; }
-  h2.title::after { content: ""; position: absolute; left: 0; bottom: -8px; width: 60px; height: 4px;
-    border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
-
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
-    padding: 26px; backdrop-filter: blur(10px);
-    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-    will-change: transform;
-  }
-  .card:hover { transform: translateY(-6px) rotateX(4deg) rotateY(-4deg);
-    border-color: var(--accent); box-shadow: 0 18px 40px rgba(0,0,0,0.45); }
-
-  .about p { font-size: 17px; color: var(--text); }
-  .about .fun { margin-top: 14px; color: var(--muted); font-size: 15px; }
-
-  .badges { display: flex; flex-wrap: wrap; gap: 12px; }
-  .badges img { transition: transform .25s ease; }
-  .badges img:hover { transform: scale(1.08) translateY(-3px); }
-
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  @media (max-width: 720px){ .stats { grid-template-columns: 1fr 1fr; } }
-  .stats .card {
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    position: relative; overflow: hidden; padding: 22px 16px;
-  }
-  /* neon top edge that lights up on hover */
-  .stats .card::before {
-    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
-    opacity: .35; transition: opacity .3s ease;
-  }
-  .stats .card:hover::before { opacity: 1; }
-  .stat-ico { font-size: 22px; line-height: 1; filter: drop-shadow(0 0 8px rgba(88,166,255,.5)); }
-  .stat-label { font-size: 12.5px; letter-spacing: .5px; color: var(--muted); text-transform: uppercase; }
-  .counter {
-    font-size: clamp(30px, 5vw, 40px); font-weight: 800; line-height: 1.05;
-    font-variant-numeric: tabular-nums; font-feature-settings: "tnum";
-    font-family: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, monospace;
-    letter-spacing: -0.5px;
-    background: linear-gradient(120deg, var(--accent), var(--accent2) 55%, var(--accent3));
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    filter: drop-shadow(0 0 14px rgba(88,166,255,.35));
-    transition: filter .3s ease, transform .3s ease;
-  }
-  .stats .card:hover .counter { filter: drop-shadow(0 0 22px rgba(88,166,255,.6)); transform: scale(1.06); }
-  #vcounter { font-size: clamp(26px, 4vw, 34px); }
-  .langrow { display: flex; align-items: center; gap: 10px; margin: 9px 0; font-size: 14px; }
-  .langname { width: 96px; flex: none; color: var(--text); }
-  .langtrack { flex: 1; height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; overflow: hidden; }
-  .langfill { height: 100%; border-radius: 99px; width: 0; transition: width 1.1s cubic-bezier(.2,.7,.3,1); }
-  .langpct { width: 48px; flex: none; text-align: right; color: var(--muted); font-size: 13px; }
-
-  .repos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 720px){ .repos { grid-template-columns: 1fr; } }
-  .repo { text-decoration: none; color: inherit; }
-  .repo .card h3 { color: var(--accent); margin-bottom: 6px; }
-  .repo .card p { color: var(--muted); font-size: 14px; }
-
-  .connect { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-  footer { text-align: center; padding: 40px 20px 80px; color: var(--muted); font-size: 14px; }
-  footer .heart { color: #ff6b9d; }
-
-  /* back to top */
-  #toTop {
-    position: fixed; right: 22px; bottom: 22px; z-index: 60;
-    width: 46px; height: 46px; border-radius: 50%;
-    border: 1px solid var(--border); background: rgba(10,14,26,0.6);
-    backdrop-filter: blur(10px); color: var(--text); cursor: pointer;
-    opacity: 0; pointer-events: none; transform: translateY(10px);
-    transition: opacity .3s ease, transform .3s ease, border-color .3s ease;
-    display: flex; align-items: center; justify-content: center; font-size: 20px;
-  }
-  #toTop.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-  #toTop:hover { border-color: var(--accent); transform: translateY(-3px); }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-    html { scroll-behavior: auto; }
+  @media (max-width: 640px) {
+    .hero { flex-direction: column; text-align: center; }
+    .hero-links { justify-content: center; }
   }
 </style>
 </head>
 <body>
-<div id="progress"></div>
-<canvas id="bg"></canvas>
-<div class="aurora"></div>
 
 <nav>
-  <div class="brand">@Wolfzzzzz</div>
+  <div class="brand">Wolfzzzzz</div>
   <div class="langs" id="langs">
     <button data-lang="zh" class="active">简体</button>
     <button data-lang="en">EN</button>
@@ -220,225 +177,208 @@
   </div>
 </nav>
 
-<div id="content">
-  <!-- HERO -->
-  <section class="hero">
+<main id="content">
+
+  <!-- Hero -->
+  <div class="hero">
     <div class="avatar">
-      <img src="https://github.com/Wolfzzzzz.png?size=260" alt="Wolf" onerror="this.style.display='none'" />
+      <img src="https://github.com/Wolfzzzzz.png?size=200" alt="Wolfzzzzz" onerror="this.style.display='none'" />
     </div>
-    <h1>@<span>Wolfzzzzz</span></h1>
-    <div class="typed" id="typed"></div>
-    <div class="cta">
-      <a class="btn primary" id="cta-follow" href="https://github.com/Wolfzzzzz?tab=followers" target="_blank" rel="noopener">★ Follow</a>
-      <a class="btn ghost" id="cta-repos" href="https://github.com/Wolfzzzzz?tab=repositories" target="_blank" rel="noopener">Repositories</a>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="reveal about" data-i18n="about">
-    <h2 class="title" data-i18n-text="aboutTitle">关于我</h2>
-    <div class="card">
-      <p data-i18n-html="aboutBody"></p>
-      <p class="fun" data-i18n-text="aboutFun"></p>
-    </div>
-  </section>
-
-  <!-- TECH -->
-  <section class="reveal" data-i18n="tech">
-    <h2 class="title" data-i18n-text="techTitle">技术栈</h2>
-    <div class="card">
-      <div class="badges">
-        <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white" alt="JS" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TS" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-Git-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" loading="lazy"/>
-        <img src="https://img.shields.io/badge/-macOS-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS" loading="lazy"/>
+    <div class="hero-text">
+      <h1>Wolfzzzzz</h1>
+      <p class="bio" data-i18n-text="bio"></p>
+      <div class="hero-links">
+        <a href="https://github.com/Wolfzzzzz" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <span data-i18n-text="location"></span>
+        <span data-i18n-text="status"></span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- STATS -->
-  <section class="reveal" data-i18n="stats">
-    <h2 class="title" data-i18n-text="statsTitle">数据看板</h2>
+  <!-- Stats -->
+  <section class="reveal">
+    <h2 class="section-title" data-i18n-text="statsTitle">📊 数据</h2>
     <div class="stats">
-      <div class="card">
-        <div class="stat-ico">👥</div>
-        <div class="counter" id="s-followers">0</div>
+      <div class="stat-card">
+        <div class="stat-num" id="s-followers">0</div>
         <div class="stat-label" data-i18n-text="followersLabel">关注者</div>
       </div>
-      <div class="card">
-        <div class="stat-ico">⭐</div>
-        <div class="counter" id="s-stars">1</div>
-        <div class="stat-label" data-i18n-text="starsLabel">获得 Star</div>
+      <div class="stat-card">
+        <div class="stat-num" id="s-stars">1</div>
+        <div class="stat-label" data-i18n-text="starsLabel">Star</div>
       </div>
-      <div class="card">
-        <div class="stat-ico">📦</div>
-        <div class="counter" id="s-repos">32</div>
-        <div class="stat-label" data-i18n-text="reposLabel">公开仓库</div>
+      <div class="stat-card">
+        <div class="stat-num" id="s-repos">32</div>
+        <div class="stat-label" data-i18n-text="reposLabel">仓库</div>
       </div>
-      <div class="card">
-        <div class="stat-ico">🧭</div>
-        <div class="counter" id="s-following">1</div>
-        <div class="stat-label" data-i18n-text="followingLabel">正在关注</div>
+      <div class="stat-card">
+        <div class="stat-num" id="s-following">1</div>
+        <div class="stat-label" data-i18n-text="followingLabel">关注中</div>
       </div>
     </div>
-    <div class="card" style="margin-top:16px;">
-      <h3 data-i18n-text="langsTitle" style="margin-bottom:14px;color:var(--accent);font-size:18px;">常用语言</h3>
-      <div id="langBars"></div>
-    </div>
-    <div class="card" style="margin-top:16px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:6px;">
-      <div class="stat-ico">👀</div>
-      <div class="counter" id="vcounter">0</div>
-      <div class="stat-label" data-i18n-text="viewsLabel">累计访客</div>
+    <div class="visitor-card">
+      <span class="stat-label" data-i18n-text="viewsLabel">累计访客</span>
+      <span class="stat-num" id="vcounter">0</span>
     </div>
   </section>
 
-  <!-- REPOS -->
-  <section class="reveal" data-i18n="repos">
-    <h2 class="title" data-i18n-text="reposTitle">精选仓库</h2>
+  <!-- About -->
+  <section class="reveal">
+    <h2 class="section-title" data-i18n-text="aboutTitle">📝 关于</h2>
+    <div class="card">
+      <div class="about-text" data-i18n-html="aboutBody"></div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="reveal">
+    <h2 class="section-title" data-i18n-text="skillsTitle">🛠️ 技能</h2>
+    <div class="skill-tags" data-i18n="skills">
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">TypeScript</span>
+      <span class="skill-tag">HTML/CSS</span>
+      <span class="skill-tag">Node.js</span>
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">React</span>
+      <span class="skill-tag">Swift</span>
+      <span class="skill-tag">Git</span>
+      <span class="skill-tag">Docker</span>
+    </div>
+  </section>
+
+  <!-- Languages -->
+  <section class="reveal">
+    <h2 class="section-title" data-i18n-text="langsTitle">🔤 常用语言</h2>
+    <div class="card">
+      <div id="langBars"></div>
+    </div>
+  </section>
+
+  <!-- Repos -->
+  <section class="reveal">
+    <h2 class="section-title" data-i18n-text="reposTitle">📂 项目</h2>
     <div class="repos" id="repoGrid"></div>
   </section>
 
-  <!-- CONNECT -->
-  <section class="reveal" data-i18n="connect">
-    <h2 class="title" data-i18n-text="connectTitle">联系我</h2>
-    <div class="connect">
-      <a class="btn ghost" href="https://github.com/Wolfzzzzz" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn ghost" id="connect-dm" href="https://github.com/Wolfzzzzz" target="_blank" rel="noopener">DM</a>
-    </div>
-  </section>
-
   <footer>
-    <span data-i18n-text="footer"></span> <span class="heart">♥</span> <span data-i18n-text="footer2"></span>
+    <span data-i18n-text="footer"></span>
   </footer>
-</div>
 
-<button id="toTop" title="回到顶部" aria-label="回到顶部">↑</button>
+</main>
 
 <script>
 /* ============ i18n ============ */
 const I18N = {
   zh: {
-    aboutTitle: "关于我",
-    aboutBody: "👋 我是 <b>Wolf</b> —— 一名喜欢做小型 Web 项目、公开学习的开发者。<br>🔭 正在做图表 / 可视化工具与迷你 Web 应用<br>🌱 学习 JavaScript、TypeScript 与前端技艺<br>💬 欢迎聊 Web 开发、数据图表与 side project",
-    aboutFun: "⚡ 趣闻：业余时间最爱折腾可视化与前端小玩具 ✨",
-    techTitle: "技术栈",
-    statsTitle: "数据看板",
+    bio: "喜欢做小项目的开发者 · 前端 & 可视化",
+    location: "📍 中国 · 江苏",
+    status: "🟢 活跃",
+    statsTitle: "📊 数据",
     followersLabel: "关注者",
-    starsLabel: "获得 Star",
-    reposLabel: "公开仓库",
-    followingLabel: "正在关注",
-    langsTitle: "常用语言",
+    starsLabel: "Star",
+    reposLabel: "仓库",
+    followingLabel: "关注中",
     viewsLabel: "累计访客",
-    reposTitle: "精选仓库",
-    connectTitle: "联系我",
-    footer: "感谢来访",
-    footer2: "点个 Star 与 Follow 支持一下吧！",
-    typed: ["你好 👋 我是 Wolf", "我在做炫酷的可视化", "一行一行 commit 出来的热爱", "欢迎来到我的小宇宙"],
-    ctaFollow: "★ 关注我",
-    ctaRepos: "我的仓库",
-    connectDM: "私信我",
+    aboutTitle: "📝 关于",
+    aboutBody: "我是 <strong>Wolfzzzzz</strong>，一名专注于前端开发与数据可视化的开发者。<br><br>喜欢折腾 Web 项目、图表工具，用代码把想法变成看得见的东西。<br>目前在学习 TypeScript、React 和 Swift，持续公开学习中。",
+    skillsTitle: "🛠️ 技能",
+    langsTitle: "🔤 常用语言",
+    reposTitle: "📂 项目",
+    footer: "© 2026 Wolfzzzzz · Built with GitHub Pages",
     repos: [
-      { n: "chartnew-test001", d: "图表 / 可视化实验仓库" },
-      { n: "ChemPedia", d: "化学知识小百科项目" },
-      { n: "ProfileWolfzzzzz", d: "我的 GitHub Profile 配置" },
-      { n: "aviationenthusiast2025", d: "航空爱好者 2025 合集" }
+      { n: "ChemPedia", d: "化学知识百科，35+ 工具，React PWA", l: "TypeScript", c: "#3178c6" },
+      { n: "chartnew-test001", d: "图表与可视化实验项目", l: "JavaScript", c: "#f1e05a" },
+      { n: "CameraGuide", d: "macOS + iOS 双平台相机百科", l: "Swift", c: "#f05138" },
+      { n: "aviationenthusiast2025", d: "航空爱好者 2025 合集", l: "HTML", c: "#e34c26" },
+      { n: "ProfileWolfzzzzz", d: "GitHub Profile 配置仓库", l: "HTML", c: "#e34c26" },
+      { n: "neural-viz", d: "神经网络可视化工具", l: "JavaScript", c: "#f1e05a" }
     ]
   },
   en: {
-    aboutTitle: "About Me",
-    aboutBody: "👋 Hey, I'm <b>Wolf</b> — a developer who loves building small web projects and learning in public.<br>🔭 Working on chart / visualization tools and mini web apps<br>🌱 Learning JavaScript, TypeScript & front-end craft<br>💬 Ask me about web dev, data charts & side projects",
-    aboutFun: "⚡ Fun fact: I love building data-viz and front-end toys in my free time ✨",
-    techTitle: "Tech & Tools",
-    statsTitle: "Live Dashboard",
+    bio: "Developer who enjoys building small projects · Frontend & Data viz",
+    location: "📍 Jiangsu, China",
+    status: "🟢 Active",
+    statsTitle: "📊 Stats",
     followersLabel: "Followers",
-    starsLabel: "Stars earned",
-    reposLabel: "Public repos",
+    starsLabel: "Stars",
+    reposLabel: "Repos",
     followingLabel: "Following",
-    langsTitle: "Top Languages",
-    viewsLabel: "Total Visitors",
-    reposTitle: "Featured Repositories",
-    connectTitle: "Connect",
-    footer: "Thanks for visiting",
-    footer2: "drop a Star & Follow to support!",
-    typed: ["Hi 👋 I'm Wolf", "Building cool visualizations", "Passion, one commit at a time", "Welcome to my little universe"],
-    ctaFollow: "★ Follow",
-    ctaRepos: "Repositories",
-    connectDM: "DM me",
+    viewsLabel: "Visitors",
+    aboutTitle: "📝 About",
+    aboutBody: "I'm <strong>Wolfzzzzz</strong>, a developer focused on front-end development and data visualization.<br><br>I enjoy building web projects and visualization tools — turning ideas into something you can see.<br>Currently learning TypeScript, React, and Swift. Learning in public.",
+    skillsTitle: "🛠️ Skills",
+    langsTitle: "🔤 Languages",
+    reposTitle: "📂 Projects",
+    footer: "© 2026 Wolfzzzzz · Built with GitHub Pages",
     repos: [
-      { n: "chartnew-test001", d: "Chart / visualization experiments" },
-      { n: "ChemPedia", d: "A small chemistry encyclopedia project" },
-      { n: "ProfileWolfzzzzz", d: "My GitHub profile config" },
-      { n: "aviationenthusiast2025", d: "Aviation enthusiast 2025 collection" }
+      { n: "ChemPedia", d: "Chemistry encyclopedia, 35+ tools, React PWA", l: "TypeScript", c: "#3178c6" },
+      { n: "chartnew-test001", d: "Chart & visualization experiments", l: "JavaScript", c: "#f1e05a" },
+      { n: "CameraGuide", d: "macOS + iOS camera encyclopedia", l: "Swift", c: "#f05138" },
+      { n: "aviationenthusiast2025", d: "Aviation enthusiast 2025 collection", l: "HTML", c: "#e34c26" },
+      { n: "ProfileWolfzzzzz", d: "GitHub profile config repo", l: "HTML", c: "#e34c26" },
+      { n: "neural-viz", d: "Neural network visualization tool", l: "JavaScript", c: "#f1e05a" }
     ]
   },
   tw: {
-    aboutTitle: "關於我",
-    aboutBody: "👋 嗨，我是 <b>Wolf</b> —— 喜歡做小型 Web 專案、公開學習的開發者。<br>🔭 正在做圖表 / 視覺化工具與迷你 Web 應用<br>🌱 學習 JavaScript、TypeScript 與前端技藝<br>💬 歡迎聊 Web 開發、資料圖表與 side project",
-    aboutFun: "⚡ 趣聞：業餘時間最愛折腾可視化與前端小玩具 ✨",
-    techTitle: "技術棧",
-    statsTitle: "數據看板",
+    bio: "喜歡做小專案的開發者 · 前端 & 視覺化",
+    location: "📍 中國 · 江蘇",
+    status: "🟢 活躍",
+    statsTitle: "📊 數據",
     followersLabel: "關注者",
-    starsLabel: "獲得 Star",
-    reposLabel: "公開倉庫",
-    followingLabel: "正在關注",
-    langsTitle: "常用語言",
+    starsLabel: "Star",
+    reposLabel: "倉庫",
+    followingLabel: "關注中",
     viewsLabel: "累計訪客",
-    reposTitle: "精選倉庫",
-    connectTitle: "聯絡我",
-    footer: "感謝來訪",
-    footer2: "點個 Star 與 Follow 支持一下吧！",
-    typed: ["你好 👋 我是 Wolf", "我在做炫酷的視覺化", "一行一行 commit 出來的熱愛", "歡迎來到我的小宇宙"],
-    ctaFollow: "★ 關注我",
-    ctaRepos: "我的倉庫",
-    connectDM: "私訊我",
+    aboutTitle: "📝 關於",
+    aboutBody: "我是 <strong>Wolfzzzzz</strong>，專注於前端開發與數據視覺化的開發者。<br><br>喜歡折騰 Web 專案、圖表工具，用程式碼把想法變成看得見的東西。<br>目前在學 TypeScript、React 和 Swift，持續公開學習中。",
+    skillsTitle: "🛠️ 技能",
+    langsTitle: "🔤 常用語言",
+    reposTitle: "📂 項目",
+    footer: "© 2026 Wolfzzzzz · Built with GitHub Pages",
     repos: [
-      { n: "chartnew-test001", d: "圖表 / 視覺化實驗倉庫" },
-      { n: "ChemPedia", d: "化學知識小百科專案" },
-      { n: "ProfileWolfzzzzz", d: "我的 GitHub Profile 設定" },
-      { n: "aviationenthusiast2025", d: "航空愛好者 2025 合集" }
+      { n: "ChemPedia", d: "化學知識百科，35+ 工具，React PWA", l: "TypeScript", c: "#3178c6" },
+      { n: "chartnew-test001", d: "圖表與視覺化實驗項目", l: "JavaScript", c: "#f1e05a" },
+      { n: "CameraGuide", d: "macOS + iOS 雙平台相機百科", l: "Swift", c: "#f05138" },
+      { n: "aviationenthusiast2025", d: "航空愛好者 2025 合集", l: "HTML", c: "#e34c26" },
+      { n: "ProfileWolfzzzzz", d: "GitHub Profile 配置倉庫", l: "HTML", c: "#e34c26" },
+      { n: "neural-viz", d: "神經網路視覺化工具", l: "JavaScript", c: "#f1e05a" }
     ]
   },
   yue: {
-    aboutTitle: "關於我",
-    aboutBody: "👋 我係 <b>Wolf</b> —— 鍾意整細規模 Web 項目、喺公開地方學嘢嘅開發者。<br>🔭 而家整緊圖表 / 可視化工具同迷你 Web App<br>🌱 學緊 JavaScript、TypeScript 同前端手藝<br>💬 歡迎傾 Web 開發、數據圖表同 side project",
-    aboutFun: "⚡ 趣聞：業餘最鍾意整可視化同前端小玩具 ✨",
-    techTitle: "技術棧",
-    statsTitle: "數據睇板",
+    bio: "鍾意整細規模 Project 嘅開發者 · 前端 & 視覺化",
+    location: "📍 中國 · 江蘇",
+    status: "🟢 活躍",
+    statsTitle: "📊 數據",
     followersLabel: "關注者",
-    starsLabel: "攞到 Star",
-    reposLabel: "公開倉庫",
+    starsLabel: "Star",
+    reposLabel: "倉庫",
     followingLabel: "跟緊",
-    langsTitle: "常用語言",
     viewsLabel: "累計訪客",
-    reposTitle: "精選倉庫",
-    connectTitle: "搵我",
-    footer: "多謝嚟睇",
-    footer2: "畀個 Star 同 Follow 撐下我啦！",
-    typed: ["你好 👋 我係 Wolf", "我整緊好型嘅可視化", "一行一行 commit 出嚟嘅熱誠", "歡迎嚟到我嘅小宇宙"],
-    ctaFollow: "★ 關注我",
-    ctaRepos: "我嘅倉庫",
-    connectDM: "私訊我",
+    aboutTitle: "📝 關於",
+    aboutBody: "我係 <strong>Wolfzzzzz</strong>，專注於前端開發同數據視覺化嘅開發者。<br><br>鍾意整 Web 項目、圖表工具，用代碼將諗法變成睇得到嘅嘢。<br>而家學緊 TypeScript、React 同 Swift，持續公開學習中。",
+    skillsTitle: "🛠️ 技能",
+    langsTitle: "🔤 常用語言",
+    reposTitle: "📂 項目",
+    footer: "© 2026 Wolfzzzzz · Built with GitHub Pages",
     repos: [
-      { n: "chartnew-test001", d: "圖表 / 可視化實驗倉庫" },
-      { n: "ChemPedia", d: "化學知識小百科項目" },
-      { n: "ProfileWolfzzzzz", d: "我嘅 GitHub Profile 設定" },
-      { n: "aviationenthusiast2025", d: "航空發燒友 2025 合集" }
+      { n: "ChemPedia", d: "化學知識百科，35+ 工具，React PWA", l: "TypeScript", c: "#3178c6" },
+      { n: "chartnew-test001", d: "圖表與視覺化實驗項目", l: "JavaScript", c: "#f1e05a" },
+      { n: "CameraGuide", d: "macOS + iOS 雙平台相機百科", l: "Swift", c: "#f05138" },
+      { n: "aviationenthusiast2025", d: "航空發燒友 2025 合集", l: "HTML", c: "#e34c26" },
+      { n: "ProfileWolfzzzzz", d: "GitHub Profile 配置倉庫", l: "HTML", c: "#e34c26" },
+      { n: "neural-viz", d: "神經網絡視覺化工具", l: "JavaScript", c: "#f1e05a" }
     ]
   }
 };
-
-const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 let CUR = localStorage.getItem("wolf_lang") || "zh";
 if (!I18N[CUR]) CUR = "zh";
 
 function applyLang(lang) {
   const d = I18N[lang];
-  document.documentElement.lang = (lang === "zh") ? "zh-CN" : (lang === "en") ? "en" : (lang === "tw") ? "zh-TW" : "zh-HK";
   document.querySelectorAll("[data-i18n-text]").forEach(el => {
     const k = el.getAttribute("data-i18n-text");
     if (d[k] != null) el.textContent = d[k];
@@ -447,79 +387,48 @@ function applyLang(lang) {
     const k = el.getAttribute("data-i18n-html");
     if (d[k] != null) el.innerHTML = d[k];
   });
-  document.getElementById("cta-follow").textContent = d.ctaFollow;
-  document.getElementById("cta-repos").textContent = d.ctaRepos;
-  document.getElementById("connect-dm").textContent = d.connectDM;
-  const grid = document.getElementById("repoGrid");
-  grid.innerHTML = "";
-  d.repos.forEach(r => {
-    const a = document.createElement("a");
-    a.className = "repo"; a.href = "https://github.com/Wolfzzzzz/" + r.n;
-    a.target = "_blank"; a.rel = "noopener";
-    a.innerHTML = '<div class="card"><h3>' + r.n + '</h3><p>' + r.d + '</p></div>';
-    grid.appendChild(a);
-  });
   document.querySelectorAll("#langs button").forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
-  startTyping(d.typed);
+  buildRepos(d.repos);
 }
 
 document.querySelectorAll("#langs button").forEach(b => {
   b.addEventListener("click", () => {
     CUR = b.dataset.lang;
     localStorage.setItem("wolf_lang", CUR);
-    fadeSwap(() => applyLang(CUR));
+    applyLang(CUR);
   });
 });
 
-function fadeSwap(fn) {
-  const c = document.getElementById("content");
-  c.style.transition = "opacity .25s ease";
-  c.style.opacity = "0";
-  setTimeout(() => { fn(); c.style.opacity = "1"; }, 250);
-}
-
-/* ============ Typing ============ */
-let typeTimer = null;
-function startTyping(arr) {
-  const el = document.getElementById("typed");
-  clearInterval(typeTimer);
-  if (REDUCED) { el.textContent = arr[0]; return; }
-  let s = 0, i = 0, del = false;
-  el.textContent = "";
-  function tick() {
-    const word = arr[s];
-    if (!del) {
-      el.textContent = word.slice(0, i++);
-      if (i > word.length) { del = true; typeTimer = setTimeout(tick, 1400); return; }
-    } else {
-      el.textContent = word.slice(0, i--);
-      if (i < 0) { del = false; s = (s + 1) % arr.length; i = 0; }
-    }
-    typeTimer = setTimeout(tick, del ? 45 : 90);
-  }
-  tick();
+function buildRepos(repos) {
+  const grid = document.getElementById("repoGrid");
+  grid.innerHTML = "";
+  repos.forEach(r => {
+    const a = document.createElement("a");
+    a.className = "repo-card"; a.href = "https://github.com/Wolfzzzzz/" + r.n;
+    a.target = "_blank"; a.rel = "noopener";
+    a.innerHTML = '<h3>' + r.n + '</h3><p>' + r.d + '</p><div class="repo-meta"><span><span class="lang-dot" style="background:' + (r.c || "#8b949e") + '"></span>' + r.l + '</span></div>';
+    grid.appendChild(a);
+  });
 }
 
 /* ============ Visitor counter ============ */
-function animateCounter() {
+(function animateCounter() {
   const el = document.getElementById("vcounter");
-  if (REDUCED) { el.textContent = (100 + Math.floor(Math.random() * 900)).toLocaleString(); return; }
   const target = 100 + Math.floor(Math.random() * 900);
   let n = 0;
-  const step = Math.max(1, Math.floor(target / 60));
+  const step = Math.max(1, Math.floor(target / 50));
   const t = setInterval(() => {
-    n += step;
-    if (n >= target) { n = target; clearInterval(t); }
+    n += step; if (n >= target) { n = target; clearInterval(t); }
     el.textContent = n.toLocaleString();
-  }, 22);
-}
+  }, 20);
+})();
 
-/* ============ Live GitHub stats (self-rendered, no external image hosts) ============ */
+/* ============ GitHub stats ============ */
 const LANG_COLORS = {
   JavaScript: "#f1e05a", TypeScript: "#3178c6", HTML: "#e34c26", CSS: "#563d7c",
-  Python: "#3572A5", C: "#555555", "C++": "#f34b7d", "C#": "#178600", Java: "#b07219",
-  Go: "#00ADD8", Rust: "#dea584", Shell: "#89e051", Vue: "#41b883", Ruby: "#701516",
-  PHP: "#4F5D95", Swift: "#F05138", Kotlin: "#A97BFF", Dart: "#00B4AB", Scala: "#c22d40"
+  Python: "#3572A5", Swift: "#f05138", "C++": "#f34b7d", Java: "#b07219",
+  Go: "#00ADD8", Rust: "#dea584", Shell: "#89e051", Vue: "#41b883",
+  PHP: "#4F5D95", Ruby: "#701516"
 };
 const FALLBACK = {
   followers: 0, following: 1, public_repos: 32, stars: 1,
@@ -542,14 +451,12 @@ function renderLangs(langs) {
       '<div class="langtrack"><div class="langfill" style="background:' + (color || "#8b949e") + '"></div></div>' +
       '<span class="langpct">' + pct + '%</span></div>';
   }).join("");
-  // animate widths after paint
   requestAnimationFrame(() => {
     const fills = box.querySelectorAll(".langfill");
     langs.forEach((l, i) => { if (fills[i]) fills[i].style.width = (l[1] / total * 100).toFixed(1) + "%"; });
   });
 }
 function fetchStats() {
-  if (REDUCED) { renderStats(FALLBACK); return; }
   const U = "https://api.github.com/users/Wolfzzzzz";
   const R = "https://api.github.com/users/Wolfzzzzz/repos?per_page=100&type=owner";
   fetch(U).then(r => r.json()).then(u => {
@@ -565,97 +472,15 @@ function fetchStats() {
   }).catch(() => renderStats(FALLBACK));
 }
 
-/* ============ Scroll progress + back to top ============ */
-const progress = document.getElementById("progress");
-const toTop = document.getElementById("toTop");
-let ticking = false;
-function onScroll() {
-  if (ticking) return;
-  ticking = true;
-  requestAnimationFrame(() => {
-    const h = document.documentElement;
-    const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight || 1);
-    progress.style.width = (scrolled * 100).toFixed(2) + "%";
-    toTop.classList.toggle("show", h.scrollTop > 400);
-    ticking = false;
-  });
-}
-window.addEventListener("scroll", onScroll, { passive: true });
-toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: REDUCED ? "auto" : "smooth" }));
-
-/* ============ Reveal on scroll ============ */
+/* ============ Scroll reveal ============ */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-}, { threshold: 0.15 });
+}, { threshold: 0.1 });
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-/* ============ Particle network ============ */
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
-let W, H, pts, rafId = null, running = true;
-const DPR = Math.min(window.devicePixelRatio || 1, 2);
-
-function resize() {
-  W = canvas.width = Math.floor(window.innerWidth * DPR);
-  H = canvas.height = Math.floor(window.innerHeight * DPR);
-  canvas.style.width = window.innerWidth + "px";
-  canvas.style.height = window.innerHeight + "px";
-  const count = Math.min(90, Math.floor((W * H) / (16000 * DPR * DPR)));
-  pts = Array.from({ length: count }, () => ({
-    x: Math.random() * W, y: Math.random() * H,
-    vx: (Math.random() - 0.5) * 0.5 * DPR, vy: (Math.random() - 0.5) * 0.5 * DPR
-  }));
-}
-resize();
-window.addEventListener("resize", resize);
-
-let mx = -9999, my = -9999;
-window.addEventListener("mousemove", e => { mx = e.clientX * DPR; my = e.clientY * DPR; });
-
-function draw() {
-  if (!running) return;
-  ctx.clearRect(0, 0, W, H);
-  const R = 130 * DPR;
-  for (let i = 0; i < pts.length; i++) {
-    const p = pts[i];
-    p.x += p.vx; p.y += p.vy;
-    if (p.x < 0 || p.x > W) p.vx *= -1;
-    if (p.y < 0 || p.y > H) p.vy *= -1;
-    const dx = p.x - mx, dy = p.y - my, dist = Math.hypot(dx, dy);
-    if (dist < R) { p.x += dx / dist * 1.2; p.y += dy / dist * 1.2; }
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, 1.8 * DPR, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(88,166,255,0.8)";
-    ctx.fill();
-    for (let j = i + 1; j < pts.length; j++) {
-      const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
-      if (d < R) {
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
-        ctx.strokeStyle = "rgba(120,160,255," + (0.18 * (1 - d / R)) + ")";
-        ctx.lineWidth = 1; ctx.stroke();
-      }
-    }
-  }
-  rafId = requestAnimationFrame(draw);
-}
-
-function startParticles() {
-  if (REDUCED) { draw(); cancelAnimationFrame(rafId); return; }
-  if (!rafId) rafId = requestAnimationFrame(draw);
-}
-function stopParticles() { running = false; cancelAnimationFrame(rafId); rafId = null; }
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) { stopParticles(); }
-  else { running = true; startParticles(); }
-});
-startParticles();
 
 /* ============ init ============ */
 applyLang(CUR);
-animateCounter();
 fetchStats();
-onScroll();
 </script>
 </body>
 </html>
