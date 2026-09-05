@@ -1,0 +1,30 @@
+name: generate snake
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Platane/snk@v3
+        with:
+          github_user_name: Wolfzzzzz
+          outputs: |
+            dist/github-contribution-grid-snake.svg
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+      - name: Push snake to output branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan output
+          cp -f dist/github-contribution-grid-snake.svg github-contribution-grid-snake.svg
+          cp -f dist/github-contribution-grid-snake-dark.svg github-contribution-grid-snake-dark.svg
+          git add -A
+          git commit -m "generated snake" || echo "no changes"
+          git push origin output --force
